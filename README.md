@@ -9,6 +9,7 @@
 <b>RASPI-INFO is a tool to get a lot of infomation about your RaspberryPi.</b><br>
 Direct use from shell: raspi-info or raspi-info-light.<br>
 Automatic use: when you login through SSH (only raspi-info-light).<br>
+<b>RASPI-INFO provides too more than 100 "shell tips" that can be useful to help you in bash!</b><br>
 
 ## Installation
 ```bash
