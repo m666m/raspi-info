@@ -19,7 +19,13 @@ apt install -f -y
 
 ## Screenshot
 #### raspi-info-light
-<img src="https://i.postimg.cc/9XJdS9QC/raspi-info-light.png" alt="raspi-info-light"><br>
+<img src="https://i.postimg.cc/N0KmrGhT/raspi-info-light.png" alt="raspi-info-light"><br>
+#### partition-info
+<img src="https://i.postimg.cc/NGZHWvHf/partition-info.png" alt="partition-info"><br>
+#### general-info
+<img src="https://i.postimg.cc/28FSTsdt/general-info.png" alt="general-info"><br>
+#### wireguard-info
+<img src="https://i.postimg.cc/SN8M416L/wireguard-info.png" alt="wireguard-info"><br>
 #### raspi-info
 <img src="https://i.postimg.cc/G2j56pHV/raspi-info.png" alt="raspi-info"><br>
 
