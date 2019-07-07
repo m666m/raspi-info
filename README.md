@@ -2,6 +2,7 @@
 
 * [Overview](#overview)
 * [Installation](#installation)
+* [Screenshot](#screenshot)
 * [Changelog](#changelog)
 
 ## Overview
@@ -16,8 +17,11 @@ apt install -f -y
 
 ```
 
-
-<img src="https://i.postimg.cc/T1j1c7n6/raspi-info.png" alt="raspi-info"><br>
+## Screenshot
+#### raspi-info-light
+<img src="https://i.postimg.cc/9XJdS9QC/raspi-info-light.png" alt="raspi-info-light"><br>
+#### raspi-info
+<img src="https://i.postimg.cc/G2j56pHV/raspi-info.png" alt="raspi-info"><br>
 
 
 ## Changelog
