@@ -13,9 +13,10 @@ Automatic use: when you login through SSH (only raspi-info-light).<br>
 
 ## Installation
 ```bash
-dpkg -i raspi-info*.deb
+git clone https://github.com/mapi68/raspi-info.git
+dpkg -i raspi-info/raspi-info*.deb
 apt install -f -y
-
+# rm -rf raspi-info ### ONLY if you want remove installation folder!
 ```
 
 ## Screenshot
