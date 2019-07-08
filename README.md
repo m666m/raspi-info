@@ -4,6 +4,7 @@
 * [Installation](#installation)
 * [Screenshot](#screenshot)
 * [Changelog](#changelog)
+* [Licence](#licence)
 
 ## Overview
 <b>RASPI-INFO is a tool to get a lot of infomation about your RaspberryPi.</b><br>
@@ -105,4 +106,4 @@ apt install -f -y
   
   
 ## License
-[MIT](LICENSE.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
