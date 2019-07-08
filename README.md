@@ -102,3 +102,7 @@ apt install -f -y
 
 <b>raspi-info (1.0-1) ; urgency=medium</b>
   * FIRST RELEASE
+  
+  
+## License
+[MIT](LICENSE.md)
