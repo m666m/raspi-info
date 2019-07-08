@@ -26,6 +26,8 @@ apt install -f -y
 <img src="https://i.postimg.cc/NGZHWvHf/partition-info.png" alt="partition-info"><br>
 #### general-info
 <img src="https://i.postimg.cc/28FSTsdt/general-info.png" alt="general-info"><br>
+#### folder-info
+<img src="https://i.postimg.cc/jSx2VkVZ/folder-info.png" alt="folder-info"><br>
 #### wireguard-info
 <img src="https://i.postimg.cc/SN8M416L/wireguard-info.png" alt="wireguard-info"><br>
 #### raspi-info
