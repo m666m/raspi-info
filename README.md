@@ -4,7 +4,7 @@
 * [Installation](#installation)
 * [Screenshot](#screenshot)
 * [Changelog](#changelog)
-* [Licence](#licence)
+* [License](#license)
 
 ## Overview
 <b>RASPI-INFO is a tool to get a lot of infomation about your RaspberryPi.</b><br>
