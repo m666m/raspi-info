@@ -39,13 +39,15 @@ apt install -f -y
 
 ## Changelog
 
+<b>raspi-info (1.1-3) ; urgency=low</b>
+  * Added support to ping multiple DNS
+  
 <b>raspi-info (1.1-2) ; urgency=medium</b>
   * Added info from tune2fs
 
 <b>raspi-info (1.1-1) ; urgency=high</b>
   * Added support for Debian 10
   * Added new logo
-  * Removed DNS ping
 
 <b>raspi-info (1.0-19) ; urgency=medium</b>
   * Added wireguard support
