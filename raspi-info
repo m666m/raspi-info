@@ -89,7 +89,7 @@ echo -e '\e[32m'Whois: '\e[94m'`whois $EXTIP | grep -m 1 owner: | awk '{print $2
 INTERFACE=$(ip -o -f inet addr show | awk '/scope global/ {print $2, $4}')
 BROADCAST=$(ip -o -f inet addr show | awk '!/scope host lo/' | awk '!/scope global wg/ {print $2, $6}')
 GATEWAYIP=$(route -n | grep -m 2 "UG" | tac | awk '{print $8, $2}')
-DOMAIN=$(cat /etc/resolv.conf | grep domain | awk '{print $2}')
+DOMAIN=$(cat /etc/resolv.conf | grep search | awk '{print $2}')
 NAMESERVERS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
 
 # Create interfaces
