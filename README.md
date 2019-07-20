@@ -38,7 +38,9 @@ apt install -f -y
 
 
 ## Changelog
-
+<b>raspi-info (1.1-4) ; urgency=low</b>
+  * Added more info in WHOIS
+  
 <b>raspi-info (1.1-3) ; urgency=low</b>
   * Added support to ping multiple DNS
   
