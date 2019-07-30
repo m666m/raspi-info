@@ -37,16 +37,16 @@ echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'`"
 echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{ print $2}'`"
 
 # Temperature
-if [ "$CPUTEMP" -lt  "46000" ]; then
-	echo -e '\e[32m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "46000" ] && [ "$CPUTEMP" -lt  "54000" ]; then
+if [ "$CPUTEMP" -lt  "48000" ]; then
+	echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'; fi
+if [ "$CPUTEMP" -gt  "48000" ] && [ "$CPUTEMP" -lt  "56000" ]; then
 	echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "54000" ] && [ "$CPUTEMP" -lt  "62000"  ]; then
+if [ "$CPUTEMP" -gt  "56000" ] && [ "$CPUTEMP" -lt  "64000"  ]; then
 	echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "62000" ] && [ "$CPUTEMP" -lt  "70000" ]; then
-	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "70000" ];  then
-	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN THE SERVER: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
+if [ "$CPUTEMP" -gt  "64000" ] && [ "$CPUTEMP" -lt  "72000" ]; then
+	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'; fi
+if [ "$CPUTEMP" -gt  "72000" ];  then
+	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
 
 # Check Internet and IP
 EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')

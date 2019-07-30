@@ -36,7 +36,10 @@ figlet "raspi-info  1 .1"
 echo
 
 # System
-echo -e '\e[32m'"OS: `lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'` / Architecture: `uname -m`"
+echo -e '\e[32m'"Hardware: "`cat /proc/cpuinfo | grep Hardware | cut -d " " -f 2` \
+	"/ Revision: "`cat /proc/cpuinfo | grep Revision | cut -d " " -f 2` \
+	"/ Serial number: "`cat /proc/cpuinfo | grep Serial | cut -d " " -f 2`
+echo -e "OS: `lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'` / Architecture: `uname -m`"
 echo -e "Kernel version: `uname -r` (`uname -v`)"
 
 # Uptime and load average
@@ -53,7 +56,7 @@ if [ "$CPUTEMP" -gt  "56000" ] && [ "$CPUTEMP" -lt  "64000"  ]; then
 if [ "$CPUTEMP" -gt  "64000" ] && [ "$CPUTEMP" -lt  "72000" ]; then
 	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'; fi
 if [ "$CPUTEMP" -gt  "72000" ];  then
-	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN THE SERVER: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
+	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
 
 # Volt and RAM
 echo
