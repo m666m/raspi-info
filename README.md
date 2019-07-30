@@ -38,6 +38,11 @@ apt install -f -y
 
 
 ## Changelog
+
+
+<b>raspi-info (1.1-5) ; urgency=medium</b>
+  * Added Hardware, Revision and Serial number
+
 <b>raspi-info (1.1-4) ; urgency=low</b>
   * Added more info in WHOIS
   
