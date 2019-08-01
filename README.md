@@ -26,7 +26,7 @@ apt install -f -y
 #### raspi-info-light
 <img src="https://i.postimg.cc/N0KmrGhT/raspi-info-light.png" alt="raspi-info-light"><br>
 #### general-info
-<img src="https://i.postimg.cc/NFhTpwQ1/general-info.png" alt="general-info"><br>
+<img src="https://i.postimg.cc/nhd4PbPN/general-info.png" alt="general-info"><br>
 #### partition-info
 <img src="https://i.postimg.cc/NGZHWvHf/partition-info.png" alt="partition-info"><br>
 #### folder-info
