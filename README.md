@@ -25,10 +25,10 @@ apt install -f -y
 ## Screenshot
 #### raspi-info-light
 <img src="https://i.postimg.cc/N0KmrGhT/raspi-info-light.png" alt="raspi-info-light"><br>
+#### general-info
+<img src="https://i.postimg.cc/NFhTpwQ1/general-info.png" alt="general-info"><br>
 #### partition-info
 <img src="https://i.postimg.cc/NGZHWvHf/partition-info.png" alt="partition-info"><br>
-#### general-info
-<img src="https://i.postimg.cc/28FSTsdt/general-info.png" alt="general-info"><br>
 #### folder-info
 <img src="https://i.postimg.cc/jSx2VkVZ/folder-info.png" alt="folder-info"><br>
 #### wireguard-info
