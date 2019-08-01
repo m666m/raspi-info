@@ -40,6 +40,9 @@ apt install -f -y
 ## Changelog
 
 
+<b>raspi-info (1.1-6) ; urgency=medium</b>
+  * Added support for apcupsd
+
 <b>raspi-info (1.1-5) ; urgency=medium</b>
   * Added Hardware, Revision and Serial number
 
