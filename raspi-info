@@ -36,9 +36,8 @@ figlet "raspi-info  1 .1"
 echo
 
 # System
-echo -e '\e[32m'"Hardware: "`cat /proc/cpuinfo | grep Hardware | cut -d " " -f 2` \
-	"/ Revision: "`cat /proc/cpuinfo | grep Revision | cut -d " " -f 2` \
-	"/ Serial number: "`cat /proc/cpuinfo | grep Serial | cut -d " " -f 2`
+echo -e '\e[32m'"Hardware: "`cat /proc/cpuinfo | grep Hardware | cut -d " " -f 2` "/ Revision: "`cat /proc/cpuinfo | grep Revision | cut -d " " -f 2` "/ Serial number: "`cat /proc/cpuinfo | grep Serial | cut -d " " -f 2`
+
 echo -e "Operative system: `lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'` / Architecture: `uname -m`"
 echo -e "Kernel version: `uname -r` (`uname -v`)"
 
@@ -47,19 +46,15 @@ echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{ print $2}'` / Upt
 
 # Apcupsd
 if [ -f /sbin/apcupsd ]; then
-	echo -e '\e[94m'"Line voltage: "`apcaccess | grep LINEV | awk '{print $3,$4}'` \
-	"/ Line frequency: "`apcaccess | grep LINEFREQ | awk '{print $3,$4}'` \
-	"/ Battery power: "`apcaccess | grep NOMPOWER | awk '{print $3,$4}'`
-	echo "Battery charge: "`apcaccess | grep BCHARGE | awk '{print $3,$4}'` \
-	"/ Load battery: "`apcaccess | grep LOADPCT | awk '{print $3,$4}'` \
-	"/ Time left: "`apcaccess | grep TIMELEFT | awk '{print $3,$4}'`
+	echo -e '\e[94m'"Line voltage: "`apcaccess | grep LINEV | awk '{print $3,$4}'` "/ Line frequency: "`apcaccess | grep LINEFREQ | awk '{print $3,$4}'` "/ Battery power: "`apcaccess | grep NOMPOWER | awk '{print $3,$4}'`
+	echo "Battery charge: "`apcaccess | grep BCHARGE | awk '{print $3,$4}'` "/ Load battery: "`apcaccess | grep LOADPCT | awk '{print $3,$4}'` "/ Time left: "`apcaccess | grep TIMELEFT | awk '{print $3,$4}'`
 fi
 echo -e '\e[0m'
 
 # Temperature
-if [ "$CPUTEMP" -lt  "48000" ]; then
+if [ "$CPUTEMP" -lt  "46000" ]; then
 	echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "48000" ] && [ "$CPUTEMP" -lt  "56000" ]; then
+if [ "$CPUTEMP" -gt  "46000" ] && [ "$CPUTEMP" -lt  "56000" ]; then
 	echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'; fi
 if [ "$CPUTEMP" -gt  "56000" ] && [ "$CPUTEMP" -lt  "64000"  ]; then
 	echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'; fi
@@ -89,18 +84,11 @@ echo -e '\e[0m'
 
 # Check Internet and IP
 EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
-ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP \e[1m$EXTIP \e[0m\e[91m(traceroute hops: `traceroute $EXTIP | wc -l`)" && \
-echo -e '\e[0m'"\e[95m`$(traceroute $EXTIP > /tmp/trace) && tail -n +2 /tmp/trace`" && \
-echo -e '\e[32m'Whois: '\e[94m'`whois $EXTIP | grep -m 1 owner: | awk '{print $2,$3,$4,$5}'` \
-	"\b"`whois $EXTIP | grep -m 1 netname: | awk '{print $2,$3,$4,$5}'` \
-	'\e[32m'Address: '\e[94m'`whois $EXTIP | grep -m 2 address: | awk '{print $2,$3,$4,$5,$6,$7,$8,$9}'` \
-	'\e[32m'Country: '\e[94m'`whois $EXTIP | grep -m 1 country: | awk '{print $2}'` || \
-	echo -e "\e[31m\e[1mInternet not connected"
+ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP \e[1m$EXTIP \e[0m\e[91m(traceroute hops: `traceroute $EXTIP | wc -l`)" && echo -e '\e[0m'"\e[95m`$(traceroute $EXTIP > /tmp/trace) && tail -n +2 /tmp/trace`" && echo -e '\e[32m'Whois: '\e[94m'`whois $EXTIP | grep -m 1 owner: | awk '{print $2,$3,$4,$5}'` "\b"`whois $EXTIP | grep -m 1 netname: | awk '{print $2,$3,$4,$5}'` '\e[32m'Address: '\e[94m'`whois $EXTIP | grep -m 2 address: | awk '{print $2,$3,$4,$5,$6,$7,$8,$9}'` '\e[32m'Country: '\e[94m'`whois $EXTIP | grep -m 1 country: | awk '{print $2}'` || echo -e "\e[31m\e[1mInternet not connected"
 
 # Check IP, whois, gateway.....
 INTERFACE=$(ip -o -f inet addr show | awk '/scope global/ {print $2, $4}')
 BROADCAST=$(ip -o -f inet addr show | awk '!/scope host lo/' | awk '!/scope global wg/ {print $2, $6}')
-GATEWAYIP=$(route -n | grep -m 2 "UG" | tac | awk '{print $8, $2}')
 DOMAIN=$(cat /etc/resolv.conf | grep search | awk '{print $2}')
 NAMESERVERS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
 
@@ -113,10 +101,10 @@ echo "`ip -o -f inet addr show | awk '/scope global/ {print $2}'`" > /tmp/interf
 printf '\e[0m'"MAC address: "
 while read -r IFACE; do
 	printf '\e[36m'$IFACE && printf " `cat /sys/class/net/$IFACE/address` "
-		if [[ $IFACE = "tun0" ]]; then
-			echo -e "\bnot available\c"; fi
-		if [[ $IFACE = "wg0" ]]; then
-			echo -e "\bnot available\c"; fi
+	if [[ $IFACE = "tun0" ]]; then
+		echo -e "\bnot available\c"; fi
+	if [[ $IFACE = "wg0" ]]; then
+		echo -e "\bnot available\c"; fi
 done < /tmp/interfaces
 echo
 
@@ -140,22 +128,31 @@ echo
 
 # Print connection data
 echo -e '\e[0m'"Broadcast (or peer):" '\e[36m'$BROADCAST
-echo -e '\e[0m'"Gateway:" '\e[36m'$GATEWAYIP
-	if [[ $DOMAIN = "" ]]; then
-	echo -e '\e[0m'"Domain: " '\e[36m'"\bnot available\c" && echo; else
-	echo -e '\e[0m'"Domain:" '\e[36m'$DOMAIN; fi
-stringarray=($NAMESERVERS) && echo -e -n '\e[0m'"Name Servers:" '\e[36m'
+if [[ $DOMAIN = "" ]]; then
+	echo -e '\e[0m'"Domain: " '\e[36m'"\bnot available\c" 
+	echo
+else
+	echo -e '\e[0m'"Domain:" '\e[36m'$DOMAIN
+fi
+stringarray=($NAMESERVERS) 
+echo -e -n '\e[0m'"Name Servers:" '\e[36m'
 for i in "${stringarray[@]}"; do
 	echo -n "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "
 done
 echo
+echo -e '\e[91m'
+
+route -n
+
 
 # Wireguard
 if [[ -f "/etc/wireguard/wg0.conf" ]]; then
 	if [[ -z `wg` ]]; then
 		:
 	else
-		echo && echo -e '\e[33m'"Wireguard: " && echo -e '\e[0m'"Public key: "'\e[36m'"`wg | grep "public key" | awk '{print $3}'`"
+		echo
+		echo -e '\e[33m'"Wireguard: "
+		echo -e '\e[0m'"Public key: "'\e[36m'"`wg | grep "public key" | awk '{print $3}'`"
 		echo -e '\e[0m'"Listening port: "'\e[36m'"`wg show | grep "listening port" | awk '{print $3}'`"
 		echo -e '\e[0m'"Peer: "'\e[36m'"`wg | grep peer | awk '{print $2}'`"
 		echo -e '\e[0m'"Endpoint: "'\e[36m'"`wg | grep endpoint | awk '{print $2}'`"
@@ -167,10 +164,8 @@ echo
 
 # Ping various server
 echo -e '\e[0m'"Time to ping world common servers and DNS:"
-echo -e '\e[94m'"google.com `ping -c 1 google.com | tail -c 23 | head -c 4` ms / youtube.com `ping -c 1 youtube.com | tail -c 23 | head -c 4` ms / \
-wikipedia.com `ping -c 1 wikipedia.com | tail -c 23 | head -c 4` ms / amazon.com `ping -c 1 amazon.com | tail -c 23 | head -c 4` ms"
-echo -e "twitter.com `ping -c 1 twitter.com | tail -c 23 | head -c 4` ms / facebook.com `ping -c 1 facebook.com | tail -c 23 | head -c 4` ms / \
-instagram.com `ping -c 1 instagram.com | tail -c 23 | head -c 4` ms / vk.com `ping -c 1 vk.com | tail -c 23 | head -c 4` ms"
+echo -e '\e[94m'"google.com `ping -c 1 google.com | tail -c 23 | head -c 4` ms / youtube.com `ping -c 1 youtube.com | tail -c 23 | head -c 4` ms / wikipedia.com `ping -c 1 wikipedia.com | tail -c 23 | head -c 4` ms / amazon.com `ping -c 1 amazon.com | tail -c 23 | head -c 4` ms"
+echo -e "twitter.com `ping -c 1 twitter.com | tail -c 23 | head -c 4` ms / facebook.com `ping -c 1 facebook.com | tail -c 23 | head -c 4` ms / instagram.com `ping -c 1 instagram.com | tail -c 23 | head -c 4` ms / vk.com `ping -c 1 vk.com | tail -c 23 | head -c 4` ms"
 echo -e "DNS Google (8.8.8.8) `ping -c 1 8.8.8.8 | tail -c 23 | head -c 4` ms / DNS OpenDNS (208.67.222.222) `ping -c 1 208.67.222.222 | tail -c 23 | head -c 4` ms / DNS CloudFlare (1.1.1.1) `ping -c 1 1.1.1.1 | tail -c 23 | head -c 4` ms"
 echo -e '\e[32m'
 
@@ -182,10 +177,10 @@ echo
 fdisk -l | grep Linux | awk '/\/dev\/mm/ {print $1}' > /tmp/sd
 fdisk -l | grep Linux | awk '/\/dev\/sd/ {print $1}' >> /tmp/sd
 while read SD; do
-echo -e '\e[33m'"Partition "$SD
-echo -e -n '\e[96m'`tune2fs -l $SD | grep Filesystem\ created`"	"`tune2fs -l $SD | grep Last\ mount\ time`
-echo && echo `tune2fs -l $SD | grep Last\ checked`"		"`tune2fs -l $SD | grep Mount\ count`"		"`tune2fs -l $SD | grep Filesystem\ state`
-echo -e `tune2fs -l $SD | grep Maximum\ mount`"		"`tune2fs -l $SD | grep Check\ interval`"		"'\e[91m'`tune2fs -l $SD | grep Lifetime`
+	echo -e '\e[33m'"Partition "$SD
+	echo -e -n '\e[96m'`tune2fs -l $SD | grep Filesystem\ created`"	"`tune2fs -l $SD | grep Last\ mount\ time`
+	echo && echo `tune2fs -l $SD | grep Last\ checked`"		"`tune2fs -l $SD | grep Mount\ count`"		"`tune2fs -l $SD | grep Filesystem\ state`
+	echo -e `tune2fs -l $SD | grep Maximum\ mount`"		"`tune2fs -l $SD | grep Check\ interval`"		"'\e[91m'`tune2fs -l $SD | grep Lifetime`
 done < /tmp/sd
 echo -e '\e[0m'
 
@@ -195,7 +190,7 @@ NUMFOL=10
 count=1
 echo -e "These are the ${NUMFOL} biggest directories and files located in your RaspberryPi:"
 du -a --max-depth=3 -x ${BASEDIR} | sort -rn | sed "1d" | head -"${NUMFOL}" |
-while read size ndir; do
+	while read size ndir; do
 	size="$(( size / 1024 ))"
 	echo -e '\e[95m'"Number ${count}: ${ndir} is ${size} Mb"
 	((count++))

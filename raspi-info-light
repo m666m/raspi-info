@@ -37,9 +37,9 @@ echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'`"
 echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{ print $2}'`"
 
 # Temperature
-if [ "$CPUTEMP" -lt  "48000" ]; then
+if [ "$CPUTEMP" -lt  "46000" ]; then
 	echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "48000" ] && [ "$CPUTEMP" -lt  "56000" ]; then
+if [ "$CPUTEMP" -gt  "46000" ] && [ "$CPUTEMP" -lt  "56000" ]; then
 	echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'; fi
 if [ "$CPUTEMP" -gt  "56000" ] && [ "$CPUTEMP" -lt  "64000"  ]; then
 	echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'; fi
