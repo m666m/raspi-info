@@ -40,82 +40,85 @@ apt install -f -y
 ## Changelog
 
 
-<b>raspi-info (1.1-6) ; urgency=medium</b>
+<b>raspi-info (1.1-7); urgency=medium</b>
+  * Added Kernel IP routing table
+
+<b>raspi-info (1.1-6); urgency=medium</b>
   * Added support for apcupsd
 
-<b>raspi-info (1.1-5) ; urgency=medium</b>
+<b>raspi-info (1.1-5); urgency=medium</b>
   * Added Hardware, Revision and Serial number
 
-<b>raspi-info (1.1-4) ; urgency=low</b>
+<b>raspi-info (1.1-4); urgency=low</b>
   * Added more info in WHOIS
   
-<b>raspi-info (1.1-3) ; urgency=low</b>
+<b>raspi-info (1.1-3); urgency=low</b>
   * Added support to ping multiple DNS
   
-<b>raspi-info (1.1-2) ; urgency=medium</b>
+<b>raspi-info (1.1-2); urgency=medium</b>
   * Added info from tune2fs
 
-<b>raspi-info (1.1-1) ; urgency=high</b>
+<b>raspi-info (1.1-1); urgency=high</b>
   * Added support for Debian 10
   * Added new logo
 
-<b>raspi-info (1.0-19) ; urgency=medium</b>
+<b>raspi-info (1.0-19); urgency=medium</b>
   * Added wireguard support
 
-<b>raspi-info (1.0-18) ; urgency=low</b>
+<b>raspi-info (1.0-18); urgency=low</b>
   * Fixed cosmetic error
 
-<b>raspi-info (1.0-17) ; urgency=medium</b>
+<b>raspi-info (1.0-17); urgency=medium</b>
   * Added interfaces speed
   * Fixed cosmetic error
 
-<b>raspi-info (1.0-16) ; urgency=high</b>
+<b>raspi-info (1.0-16); urgency=high</b>
   * Now raspi-info removes useless files in /etc/update-motd.d and /etc/motd
 
-<b>raspi-info (1.0-15) ; urgency=medium</b>
+<b>raspi-info (1.0-15); urgency=medium</b>
   * Added Filesystem info check and lifetime writes
 
-<b>raspi-info (1.0-14) ; urgency=medium</b>
+<b>raspi-info (1.0-14); urgency=medium</b>
   * Fixed DNS ping
 
-<b>raspi-info (1.0-13) ; urgency=high</b>
+<b>raspi-info (1.0-13); urgency=high</b>
   * Fixed file backup in preinst and postrm
   * Added md5 file
 
-<b>raspi-info (1.0-12) ; urgency=low</b>
+<b>raspi-info (1.0-12); urgency=low</b>
   * Updated Shell tips
 
-<b>raspi-info (1.0-11) ; urgency=medium</b>
+<b>raspi-info (1.0-11); urgency=medium</b>
   * Added DNS ping
 
-<b>raspi-info (1.0-10) ; urgency=medium</b>
+<b>raspi-info (1.0-10); urgency=medium</b>
   * Added list of USB devices
 
-<b>raspi-info (1.0-9) ; urgency=high</b>
+<b>raspi-info (1.0-9); urgency=high</b>
   * Fixed many bugs
 
-<b>raspi-info (1.0-8) ; urgency=medium</b>
+<b>raspi-info (1.0-8); urgency=medium</b>
   * Added shell tips
 
-<b>raspi-info (1.0-7) ; urgency=medium</b>
+<b>raspi-info (1.0-7); urgency=medium</b>
   * Added beautiful calendar
 
-<b>raspi-info (1.0-6) ; urgency=medium</b>
+<b>raspi-info (1.0-6); urgency=medium</b>
   * Added min-max CPU frequency
 
-<b>raspi-info (1.0-5) ; urgency=medium</b>
+<b>raspi-info (1.0-5); urgency=medium</b>
   * Added MAC address for all interfaces
 
-<b>raspi-info (1.0-4) ; urgency=medium</b>
+<b>raspi-info (1.0-4); urgency=medium</b>
   * Added traceroute
 
-<b>raspi-info (1.0-3) ; urgency=high</b>
+<b>raspi-info (1.0-3); urgency=high</b>
   * Fixed bug in folder /etc/update-motd.d
 
-<b>raspi-info (1.0-2) ; urgency=medium</b>
+<b>raspi-info (1.0-2); urgency=medium</b>
   * Added number of core in CPU info
 
-<b>raspi-info (1.0-1) ; urgency=medium</b>
+<b>raspi-info (1.0-1); urgency=medium</b>
   * FIRST RELEASE
   
   
