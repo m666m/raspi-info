@@ -32,7 +32,7 @@ CPUTEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
 
 clear
 
-figlet "raspi-info  1 .1"
+figlet "raspi-info  1 .2"
 echo
 
 # System
