@@ -40,6 +40,9 @@ apt install -f -y
 ## Changelog
 
 
+<b>raspi-info (1.2-2); urgency=high</b>
+  * Missing dependencies for OSMC mediacenter
+  
 <b>raspi-info (1.2-1); urgency=medium</b>
   * Added armhf64 version
 
