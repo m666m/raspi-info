@@ -52,15 +52,15 @@ fi
 echo -e '\e[0m'
 
 # Temperature
-if [ "$CPUTEMP" -lt  "46000" ]; then
+if [ "$CPUTEMP" -lt  "45000" ]; then
 	echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "46000" ] && [ "$CPUTEMP" -lt  "56000" ]; then
+if [ "$CPUTEMP" -gt  "45000" ] && [ "$CPUTEMP" -lt  "55000" ]; then
 	echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "56000" ] && [ "$CPUTEMP" -lt  "64000"  ]; then
+if [ "$CPUTEMP" -gt  "55000" ] && [ "$CPUTEMP" -lt  "65000"  ]; then
 	echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "64000" ] && [ "$CPUTEMP" -lt  "72000" ]; then
+if [ "$CPUTEMP" -gt  "65000" ] && [ "$CPUTEMP" -lt  "75000" ]; then
 	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "72000" ];  then
+if [ "$CPUTEMP" -gt  "75000" ];  then
 	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
 
 # Volt and RAM
@@ -129,12 +129,12 @@ echo
 # Print connection data
 echo -e '\e[0m'"Broadcast (or peer):" '\e[36m'$BROADCAST
 if [[ $DOMAIN = "" ]]; then
-	echo -e '\e[0m'"Domain: " '\e[36m'"\bnot available\c" 
+	echo -e '\e[0m'"Domain: " '\e[36m'"\bnot available\c"
 	echo
 else
 	echo -e '\e[0m'"Domain:" '\e[36m'$DOMAIN
 fi
-stringarray=($NAMESERVERS) 
+stringarray=($NAMESERVERS)
 echo -e -n '\e[0m'"Name Servers:" '\e[36m'
 for i in "${stringarray[@]}"; do
 	echo -n "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "
