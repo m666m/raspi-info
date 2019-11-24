@@ -50,7 +50,8 @@ if [ "$CPUTEMP" -gt  "75000" ];  then
 
 # Check Internet and IP
 EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
-ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP $EXTIP" || echo -e "\e[31m\e[1mInternet not connected"'\e[0m'
+COUNTRY=`whois $EXTIP | grep -m 1 country: | awk '{print $2}'`
+ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP $EXTIP ($COUNTRY)" || echo -e "\e[31m\e[1mInternet not connected"'\e[0m'
 INTERFACE=$(ip -o -f inet addr show | awk '/scope global/ {print $2, $4}')
 echo -e '\e[32m'"Internal IP:" $INTERFACE
 
