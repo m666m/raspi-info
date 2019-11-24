@@ -17,7 +17,7 @@ Automatic use: when you login through SSH (only raspi-info-light).<br>
 ## Installation
 ```bash
 git clone https://github.com/mapi68/raspi-info.git
-dpkg -i raspi-info/raspi-info*.deb
+dpkg -i raspi-info/YOUR_ARCHITECTURE_PACKAGE.deb
 apt install -f -y
 # rm -rf raspi-info ### ONLY if you want remove installation folder!
 ```
@@ -39,6 +39,9 @@ apt install -f -y
 
 ## Changelog
 
+
+<b>raspi-info (1.2-3); urgency=medium</b>
+  * Added IP country detection in raspi-info-light
 
 <b>raspi-info (1.2-2); urgency=high</b>
   * Missing dependencies for OSMC mediacenter
