@@ -119,12 +119,15 @@ done < /tmp/interfaces
 echo
 
 # Speed
-sed -i '/wg0/d' /tmp/interfaces
-echo -e -n '\e[0m'"Speed: "'\e[36m'
-while read -r IFACE; do
-	echo -n "$IFACE `ethtool $IFACE | grep -i speed | awk '{print $2}'` "
-done < /tmp/interfaces
-echo
+sed -i '/wg0/d' /tmp/interfaces && sed -i '/wlan0/d' /tmp/interfaces
+if [ -s /tmp/interfaces ]; then
+	echo -e -n '\e[0m'"Speed: "'\e[36m'
+	while read -r IFACE; do
+		echo -n "$IFACE `ethtool $IFACE | grep -i speed | awk '{print $2}'` "
+	done < /tmp/interfaces
+	echo
+fi
+
 
 # Print connection data
 echo -e '\e[0m'"Broadcast (or peer):" '\e[36m'$BROADCAST
@@ -143,7 +146,6 @@ echo
 echo -e '\e[91m'
 
 route -n
-
 
 # Wireguard
 if [[ -f "/etc/wireguard/wg0.conf" ]]; then
@@ -164,8 +166,7 @@ echo
 
 # Ping various server
 echo -e '\e[0m'"Time to ping world common servers and DNS:"
-echo -e '\e[94m'"google.com `ping -c 1 google.com | tail -c 23 | head -c 4` ms / youtube.com `ping -c 1 youtube.com | tail -c 23 | head -c 4` ms / wikipedia.com `ping -c 1 wikipedia.com | tail -c 23 | head -c 4` ms / amazon.com `ping -c 1 amazon.com | tail -c 23 | head -c 4` ms"
-echo -e "twitter.com `ping -c 1 twitter.com | tail -c 23 | head -c 4` ms / facebook.com `ping -c 1 facebook.com | tail -c 23 | head -c 4` ms / instagram.com `ping -c 1 instagram.com | tail -c 23 | head -c 4` ms / vk.com `ping -c 1 vk.com | tail -c 23 | head -c 4` ms"
+echo -e '\e[94m'"google.com `ping -c 1 google.com | tail -c 23 | head -c 4` ms / youtube.com `ping -c 1 youtube.com | tail -c 23 | head -c 4` ms / facebook.com `ping -c 1 facebook.com | tail -c 23 | head -c 4` ms / twitter.com `ping -c 1 twitter.com | tail -c 23 | head -c 4` ms"
 echo -e "DNS Google (8.8.8.8) `ping -c 1 8.8.8.8 | tail -c 23 | head -c 4` ms / DNS OpenDNS (208.67.222.222) `ping -c 1 208.67.222.222 | tail -c 23 | head -c 4` ms / DNS CloudFlare (1.1.1.1) `ping -c 1 1.1.1.1 | tail -c 23 | head -c 4` ms"
 echo -e '\e[32m'
 
