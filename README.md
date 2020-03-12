@@ -16,10 +16,10 @@ Automatic use: when you login through SSH (only raspi-info-light).<br>
 
 ## Installation
 ```bash
-git clone https://github.com/mapi68/raspi-info.git
-dpkg -i raspi-info/YOUR_ARCHITECTURE_PACKAGE.deb
+wget https://github.com/mapi68/raspi-info/releases/download/v1.2-3/raspi-info_1.2-3_armhf.deb
+dpkg -i raspi-info*.deb
 apt install -f -y
-# rm -rf raspi-info ### ONLY if you want remove installation folder!
+# rm -rf raspi-info*.deb ### ONLY if you want to remove installation file!
 ```
 
 ## Screenshot
