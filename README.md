@@ -40,6 +40,9 @@ apt install -f -y
 ## Changelog
 
 
+<b>raspi-info (1.2-4); urgency=medium</b>
+  * Added check for MPG2 and WVC1 codec license
+
 <b>raspi-info (1.2-3); urgency=medium</b>
   * Added IP country detection in raspi-info-light
 
