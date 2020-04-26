@@ -16,7 +16,7 @@ Automatic use: when you login through SSH (only raspi-info-light).<br>
 
 ## Installation
 ```bash
-wget https://github.com/mapi68/raspi-info/releases/download/v1.2-3/raspi-info_1.2-3_armhf.deb
+wget https://github.com/mapi68/raspi-info/releases/download/v1.2-4/raspi-info_1.2-4_armhf.deb
 dpkg -i raspi-info*.deb
 apt install -f -y
 # rm -rf raspi-info*.deb ### ONLY if you want to remove installation file!
