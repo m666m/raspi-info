@@ -98,7 +98,18 @@ NAMESERVERS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
 
 # Create interfaces
 echo
-echo -e '\e[0m\e[1m'"Internal IP:" '\e[36m\e[1m'$INTERFACE
+echo -e -n '\e[0m\e[1m'"Internal IP:" '\e[36m\e[1m'$INTERFACE
+
+# WLAN quality
+if [[ $INTERFACE =~ wlan0 ]]; then
+	echo -e -n '\e[33m'" "
+	iwgetid | awk '{ print $2}'
+	iwconfig wlan0 | grep -i "Bit Rate" | sed -e 's/^\s*//' -e '/^$/d' # REMOVE TAB
+	iwconfig wlan0 | grep -i "Link Quality" | sed -e 's/^\s*//' -e '/^$/d' # REMOVE TAB
+else
+	echo
+fi
+
 echo "`ip -o -f inet addr show | awk '/scope global/ {print $2}'`" > /tmp/interfaces
 
 # MAC address
@@ -131,7 +142,6 @@ if [ -s /tmp/interfaces ]; then
 	done < /tmp/interfaces
 	echo
 fi
-
 
 # Print connection data
 echo -e '\e[0m'"Broadcast (or peer):" '\e[36m'$BROADCAST
