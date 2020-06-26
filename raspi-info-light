@@ -31,6 +31,7 @@ CPUTEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
 clear
 
 # System
+echo -e -n '\e[33m' && cat /proc/device-tree/model && echo
 echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'`"
 
 # Uptime and load average
@@ -76,7 +77,7 @@ echo -e "Uptime `uptime -p | sed "s/^[^ ]* //"`"
 echo -e '\e[0m'
 
 # Tips and random color for fitglet
-TIP=/usr/local/lib/raspi-info/shell-tips
+TIP=/usr/lib/raspi-info/shell-tips
 FIGLETCOLOR=`shuf -i91-96 -n1`
 echo -e '\e[44m\e[1m'" Shell tip: `shuf -n 1 $TIP` "'\e[0m\e['$FIGLETCOLOR'm'
 

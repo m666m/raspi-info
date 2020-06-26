@@ -32,10 +32,11 @@ CPUTEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
 
 clear
 
-figlet "raspi-info  1 .2"
+figlet "raspi-info  1 .3"
 echo
 
 # System
+echo -e -n '\e[33m' && cat /proc/device-tree/model && echo
 echo -e '\e[32m'"Hardware: "`cat /proc/cpuinfo | grep Hardware | cut -d " " -f 2` "/ Revision: "`cat /proc/cpuinfo | grep Revision | cut -d " " -f 2` "/ Serial number: "`cat /proc/cpuinfo | grep Serial | cut -d " " -f 2`
 
 echo -e "Operative system: `lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'` / Architecture: `uname -m`"
@@ -224,7 +225,7 @@ echo -e "Days from beginning of year `date +"%j"` / Weeks from beginning of year
 echo -e '\e[0m'
 
 # Tips and random color for fitglet
-TIP=/usr/local/lib/raspi-info/shell-tips
+TIP=/usr/lib/raspi-info/shell-tips
 FIGLETCOLOR=`shuf -i91-96 -n1`
 echo -e '\e[44m\e[1m'" Shell tip: `shuf -n 1 $TIP` "'\e[0m\e['$FIGLETCOLOR'm'
 
