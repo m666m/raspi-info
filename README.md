@@ -40,6 +40,10 @@ apt install -f -y
 ## Changelog
 
 
+<b>raspi-info (1.3-1); urgency=high</b>
+  * Move files from /usr/local to /usr
+  * Added Raspberry model
+
 <b>raspi-info (1.2-5); urgency=medium</b>
   * Added WLAN info in raspi-info and raspi-info-light
 
