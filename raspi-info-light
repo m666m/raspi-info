@@ -27,11 +27,12 @@
 # Temperature
 CPUTEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
 #######################################################
+RASPMOD=$(cat /proc/device-tree/model)
 
 clear
 
 # System
-echo -e -n '\e[33m' && cat /proc/device-tree/model && echo
+echo -e '\e[33m'"$RASPMOD"
 echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'`"
 
 # Uptime and load average
