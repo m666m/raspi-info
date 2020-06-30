@@ -10,7 +10,7 @@
 #                                                                               #
 #                                                                               #
 # MIT License                                                                   #
-# Copyright (c) 2019 Massimo Pissarello                                         #
+# Copyright (c) 2019-2020 Massimo Pissarello                                    #
 # Permission is hereby granted, free of charge, to any person obtaining a copy  #
 # of this software and associated documentation files (the "Software"), to deal #
 # in the Software without restriction, including without limitation the rights  #
@@ -97,7 +97,7 @@ ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP \
 # Check IP, whois, gateway.....
 INTERFACE=$(ip -o -f inet addr show | awk '/scope global/ {print $2, $4}')
 BROADCAST=$(ip -o -f inet addr show | awk '!/scope host lo/' | awk '!/scope global wg/ {print $2, $6}')
-DOMAIN=$(cat /etc/resolv.conf | grep search | awk '{print $2}')
+DOMAIN=$(cat /etc/resolv.conf | grep domain | awk '{print $2}')
 NAMESERVERS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
 
 # Create interfaces
