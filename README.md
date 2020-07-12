@@ -12,7 +12,7 @@ Direct use from shell: raspi-info or raspi-info-light.<br>
 Automatic use: when you login through SSH (only raspi-info-light).<br>
 <b>RASPI-INFO provides too more than 100 "shell tips" that can be useful to help you in bash!</b><br>
 
-<img src="https://i.postimg.cc/xdjmJBKN/raspi-info-logo.png" alt="raspi-info-logo"><br>
+<img src="https://i.postimg.cc/LXPzgmXR/raspi-info-logo.png" alt="raspi-info-logo"><br>
 
 ## Installation
 ```bash
