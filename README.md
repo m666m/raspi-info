@@ -17,9 +17,7 @@ Automatic use: when you login through SSH (only raspi-info-light).<br>
 ## Installation
 ```bash
 wget -O raspi-info_latest.deb https://github.com/mapi68/raspi-info/raw/master/raspi-info_latest.deb
-dpkg -i raspi-info_latest.deb
-apt install -f -y
-# rm raspi-info_latest.deb ### ONLY if you want to remove installation file!
+dpkg -i raspi-info_latest.deb; apt install -f -y
 ```
 
 ## Screenshot
