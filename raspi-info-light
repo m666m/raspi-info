@@ -1,0 +1,88 @@
+#!/bin/bash
+
+#################################################################################
+#                                                                               #
+#    _ __ __ _ ___ _ __ (_)     (_)_ __  / _| ___       | (_) __ _| |__ | |_    #
+#   | '__/ _` / __| '_ \| |_____| | '_ \| |_ / _ \ _____| | |/ _` | '_ \| __|   #
+#   | | | (_| \__ \ |_) | |_____| | | | |  _| (_) |_____| | | (_| | | | | |_    #
+#   |_|  \__,_|___/ .__/|_|     |_|_| |_|_|  \___/      |_|_|\__, |_| |_|\__|   #
+#                 |_|                                        |___/              #
+#                                                                               #
+#                                                                               #
+# MIT License                                                                   #
+# Copyright (c) 2019-2020 Massimo Pissarello                                    #
+# Permission is hereby granted, free of charge, to any person obtaining a copy  #
+# of this software and associated documentation files (the "Software"), to deal #
+# in the Software without restriction, including without limitation the rights  #
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell     #
+# copies of the Software, and to permit persons to whom the Software is         #
+# furnished to do so, subject to the following conditions:                      #
+# The above copyright notice and this permission notice shall be included in    #
+# all copies or substantial portions of the Software.                           #
+#                                                                               #
+#################################################################################
+
+
+##### VARIABLES AT BEGINNING FOR CORRECT MEASUREMENT!!!
+# Temperature
+CPUTEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
+#######################################################
+RASPMOD=$(cat /proc/device-tree/model)
+
+clear
+
+# System
+echo -e '\e[33m'"$RASPMOD"
+echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'`"
+
+# Uptime and load average
+echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{ print $2}'`"
+
+# Temperature
+if [ "$CPUTEMP" -lt  "45000" ]; then
+	echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'; fi
+if [ "$CPUTEMP" -gt  "45000" ] && [ "$CPUTEMP" -lt  "55000" ]; then
+	echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'; fi
+if [ "$CPUTEMP" -gt  "55000" ] && [ "$CPUTEMP" -lt  "65000"  ]; then
+	echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'; fi
+if [ "$CPUTEMP" -gt  "65000" ] && [ "$CPUTEMP" -lt  "75000" ]; then
+	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'; fi
+if [ "$CPUTEMP" -gt  "75000" ];  then
+	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
+
+# Check Internet and IP
+EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
+COUNTRY=`whois $EXTIP | grep -m 1 country: | awk '{print $2}'`
+ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP $EXTIP ($COUNTRY)" || echo -e "\e[31m\e[1mInternet not connected"'\e[0m'
+INTERFACE=$(ip -o -f inet addr show | awk '/scope global/ {print $2, $4}')
+echo -e -n '\e[32m'"Internal IP:" $INTERFACE
+
+# WLAN quality
+if [[ $INTERFACE =~ wlan0 ]]; then
+	echo -e -n '\e[33m'" "
+	iwgetid | awk '{ print $2}'
+	iwconfig wlan0 | grep -i "Bit Rate" | sed -e 's/^\s*//' -e '/^$/d' # REMOVE TAB
+	iwconfig wlan0 | grep -i "Link Quality" | sed -e 's/^\s*//' -e '/^$/d' # REMOVE TAB
+else
+	echo
+fi
+
+# File system
+echo -e '\e[95m'
+df -h | grep -v "tmpfs"
+echo -e '\e[0m'
+
+# About date
+echo -e '\e[96m'"Time now is `date +"%H:%M:%S"` in `timedatectl | awk '/Time zone:/ {print $3, $4, $5}'`"
+echo -e "Uptime `uptime -p | sed "s/^[^ ]* //"`"
+echo -e '\e[0m'
+
+# Tips and random color for fitglet
+TIP=/usr/lib/raspi-info/shell-tips
+FIGLETCOLOR=`shuf -i91-96 -n1`
+echo -e '\e[44m\e[1m'" Shell tip: `shuf -n 1 $TIP` "'\e[0m\e['$FIGLETCOLOR'm'
+
+# Print hostname
+figlet `hostname -s`
+echo -e '\e[0m'"\c"
+echo
