@@ -38,8 +38,12 @@ sudo dpkg -i raspi-info_latest.deb; sudo apt install -f -y
 ## Changelog
 
 
+<b>raspi-info (1.3-3); urgency=medium</b>
+  * Fixed memory detection for Pi 4
+  * Some cosmetic changes
+  
 <b>raspi-info (1.3-2); urgency=low</b>
-  * Added Raspberry bootloader version for Pi 4
+  * Added info about Raspberry bootloader for Pi 4
 
 <b>raspi-info (1.3-1); urgency=high</b>
   * Move files from /usr/local to /usr
