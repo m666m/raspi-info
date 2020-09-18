@@ -27,12 +27,14 @@
 # Temperature
 CPUTEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
 #######################################################
-RASPMOD=$(cat /proc/device-tree/model)
+RASPMOD=$(tr -d '\0' </proc/device-tree/model)
 
 clear
 
 # System
-echo -e '\e[33m'"$RASPMOD"
+if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
+	echo -e '\e[33m'"$RASPMOD with ${MEMTOT}GB RAM"; else
+	echo -e '\e[33m'"$RASPMOD"; fi
 echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'`"
 
 # Uptime and load average

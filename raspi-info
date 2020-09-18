@@ -29,8 +29,9 @@ CPUNOW=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`
 # Temperature
 CPUTEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
 #######################################################
-RASPMOD=$(cat /proc/device-tree/model)
+RASPMOD=$(tr -d '\0' </proc/device-tree/model)
 BOOTLD=$(vcgencmd bootloader_version | head -1)
+MEMTOT=$((`grep -i MemTotal /proc/meminfo | cut -f1 -dk | cut -f2 -d:` / (1024*1024) + 1))
 
 clear
 
@@ -39,8 +40,9 @@ echo
 
 # System
 if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
-	echo -e '\e[33m'"$RASPMOD / Bootloader date: $BOOTLD"; else
+	echo -e '\e[33m'"$RASPMOD with ${MEMTOT}GB RAM / Bootloader date: $BOOTLD"; else
 	echo -e '\e[33m'"$RASPMOD"; fi
+
 echo -e '\e[32m'"Hardware: "`cat /proc/cpuinfo | grep Hardware | cut -d " " -f 2` "/ Revision: "`cat /proc/cpuinfo | grep Revision | cut -d " " -f 2` "/ Serial number: "`cat /proc/cpuinfo | grep Serial | cut -d " " -f 2`
 echo -e "Operative system: `lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'` / Architecture: `uname -m`"
 echo -e "Kernel version: `uname -r` (`uname -v`)"
@@ -68,7 +70,11 @@ if [ "$CPUTEMP" -gt  "75000" ];  then
 	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
 
 # Volt and RAM
-echo -e '\e[36m'"CPU `vcgencmd measure_volts core` / RAM `vcgencmd measure_volts sdram_p` / RAM dedicated to `vcgencmd get_mem arm` / RAM dedicated to `vcgencmd get_mem gpu`"
+if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
+	echo -e '\e[36m'"CPU `vcgencmd measure_volts core` / RAM `vcgencmd measure_volts sdram_p` / RAM dedicated to `vcgencmd get_mem gpu`B"
+else
+	echo -e '\e[36m'"CPU `vcgencmd measure_volts core` / RAM `vcgencmd measure_volts sdram_p` / RAM dedicated to `vcgencmd get_mem arm`B / RAM dedicated to `vcgencmd get_mem gpu`B"
+fi
 
 # CPU frequency
 CPUMIN=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`
@@ -77,8 +83,8 @@ echo -e "CPU has `nproc` core and frequency now is `expr $CPUNOW / 1000` MHz (ra
 echo
 
 # Complete RAM data
-echo -e '\e[0m'"RAM usage and Swap:"
-echo -e '\e[33m'"`free -m`"
+echo -e '\e[0m'"RAM usage and Swap in MB:"
+echo -e '\e[33m'"`free --mega -t`"
 echo -e '\e[0m'
 
 # List USB
