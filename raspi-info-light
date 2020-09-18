@@ -28,6 +28,7 @@
 CPUTEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
 #######################################################
 RASPMOD=$(tr -d '\0' </proc/device-tree/model)
+MEMTOT=$((`grep -i MemTotal /proc/meminfo | cut -f1 -dk | cut -f2 -d:` / (1024*1024) + 1))
 
 clear
 
