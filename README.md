@@ -16,9 +16,9 @@ Automatic use: when you login through SSH (only raspi-info-light).<br>
 
 ## Installation
 ```bash
-if [[ "uname -m" == "aarch64" ]]; then
+if [[ "uname -m" == 'aarch64' ]]; then
 wget -P /tmp/ https://github.com/mapi68/raspi-info/raw/master/raspi-info_latest-64.deb; else
-wget -P /tmp/  https://github.com/mapi68/raspi-info/raw/master/raspi-info_latest-32.deb; fi
+wget -P /tmp/ https://github.com/mapi68/raspi-info/raw/master/raspi-info_latest-32.deb; fi
 sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-info_latest*.deb
 ```
 
