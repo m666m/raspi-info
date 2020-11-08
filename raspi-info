@@ -92,9 +92,11 @@ echo -e '\e[0m'"USB devices:"
 echo -e '\e[36m'"`lsusb`"
 echo -e '\e[0m'
 
-# Codec license
-echo -e -n '\e[0m'"Codec license: " && echo -e '\e[36m'"`vcgencmd codec_enabled MPG2` / `vcgencmd codec_enabled WVC1`"
-echo -e '\e[0m'
+# Codec license, RASPBERRY PI 4 DOES NOT HAVE MPEG-2 AND VC-1 HARDWARE DECODE
+if [[ ! "$RASPMOD" == "Raspberry Pi 4"* ]]; then
+	echo -e -n '\e[0m'"Codec license: " && echo -e '\e[36m'"`vcgencmd codec_enabled MPG2` / `vcgencmd codec_enabled WVC1`"
+	echo -e '\e[0m'
+fi
 
 # Check Internet and IP
 EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
