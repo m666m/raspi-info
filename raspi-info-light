@@ -72,7 +72,7 @@ fi
 
 # File system
 echo -e '\e[95m'
-df -h | grep -v "tmpfs"
+df -h | grep -v "tmpfs" | grep -v "udev"
 echo -e '\e[0m'
 
 # About date

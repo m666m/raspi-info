@@ -198,12 +198,12 @@ echo -e "DNS Google (8.8.8.8) `ping -c 1 8.8.8.8 | tail -c 23 | head -c 4` ms / 
 echo -e '\e[32m'
 
 # File system
-df -h | grep -v "tmpfs"
+df -h | grep -v "tmpfs" | grep -v "udev"
 
 # List all sd
 echo
-fdisk -l | grep Linux | awk '/\/dev\/mm/ {print $1}' > /tmp/sd
-fdisk -l | grep Linux | awk '/\/dev\/sd/ {print $1}' >> /tmp/sd
+fdisk -l | grep Linux | grep -v swap | awk '/\/dev\/mm/ {print $1}' > /tmp/sd
+fdisk -l | grep Linux | grep -v swap | awk '/\/dev\/sd/ {print $1}' >> /tmp/sd
 while read SD; do
 	echo -e '\e[33m'"Partition "$SD
 	echo -e -n '\e[96m'`tune2fs -l $SD | grep Filesystem\ created`"	"`tune2fs -l $SD | grep Last\ mount\ time`
