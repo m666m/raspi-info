@@ -40,6 +40,9 @@ sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-
 ## Changelog
 
 
+<b>raspi-info (1.3-4); urgency=low</b>
+  * Some cosmetic changes
+  
 <b>raspi-info (1.3-3); urgency=medium</b>
   * Fixed memory detection for Pi 4
   * Some cosmetic changes
