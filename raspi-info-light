@@ -39,7 +39,7 @@ if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
 echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'`"
 
 # Uptime and load average
-echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{ print $2}'`"
+echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{print $2}'`"
 
 # Temperature
 if [ "$CPUTEMP" -lt  "45000" ]; then
