@@ -24,21 +24,20 @@ sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-
 
 ## Screenshot
 #### raspi-info-light
-<img src="https://i.postimg.cc/d0cyzqZb/raspi-info-light.png" alt="raspi-info-light"><br>
+<img src="https://i.postimg.cc/d0cyzqZb/raspi-info-light.png"><br>
 #### general-info
-<img src="https://i.postimg.cc/nhd4PbPN/general-info.png" alt="general-info"><br>
+<img src="https://i.postimg.cc/nhd4PbPN/general-info.png"><br>
 #### partition-info
-<img src="https://i.postimg.cc/NGZHWvHf/partition-info.png" alt="partition-info"><br>
+<img src="https://i.postimg.cc/NGZHWvHf/partition-info.png"><br>
 #### folder-info
-<img src="https://i.postimg.cc/jSx2VkVZ/folder-info.png" alt="folder-info"><br>
+<img src="https://i.postimg.cc/jSx2VkVZ/folder-info.png"><br>
 #### wireguard-info
-<img src="https://i.postimg.cc/SN8M416L/wireguard-info.png" alt="wireguard-info"><br>
+<img src="https://i.postimg.cc/SN8M416L/wireguard-info.png"><br>
 #### raspi-info
-<img src="https://i.postimg.cc/G2j56pHV/raspi-info.png" alt="raspi-info"><br>
+<img src="https://i.postimg.cc/G2j56pHV/raspi-info.png"><br>
 
 
 ## Changelog
-
 
 <b>raspi-info (1.3-4); urgency=low</b>
   * Some cosmetic changes
