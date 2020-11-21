@@ -12,7 +12,7 @@ Direct use from shell: raspi-info or raspi-info-light.<br>
 Automatic use: when you login through SSH (only raspi-info-light).<br>
 <b>RASPI-INFO provides too more than 100 "shell tips" that can be useful to help you in bash!</b><br>
 
-<img src="https://i.postimg.cc/LXPzgmXR/raspi-info-logo.png" alt="raspi-info-logo"><br>
+<img src="https://github.com/mapi68/raspi-info/raw/master/images/raspi-info-logo.png"><br>
 
 ## Installation
 ```bash
@@ -24,17 +24,17 @@ sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-
 
 ## Screenshot
 #### raspi-info-light
-<img src="https://i.postimg.cc/d0cyzqZb/raspi-info-light.png"><br>
+<img src="https://github.com/mapi68/raspi-info/raw/master/images/raspi-info-light.png"><br>
 #### general-info
-<img src="https://i.postimg.cc/nhd4PbPN/general-info.png"><br>
+<img src="https://github.com/mapi68/raspi-info/raw/master/images/general-info.png"><br>
 #### partition-info
-<img src="https://i.postimg.cc/NGZHWvHf/partition-info.png"><br>
+<img src="https://github.com/mapi68/raspi-info/raw/master/images/partition-info.png"><br>
 #### folder-info
-<img src="https://i.postimg.cc/jSx2VkVZ/folder-info.png"><br>
+<img src="https://github.com/mapi68/raspi-info/raw/master/images/folder-info.png"><br>
 #### wireguard-info
-<img src="https://i.postimg.cc/SN8M416L/wireguard-info.png"><br>
+<img src="https://github.com/mapi68/raspi-info/raw/master/images/wireguard-info.png"><br>
 #### raspi-info
-<img src="https://i.postimg.cc/G2j56pHV/raspi-info.png"><br>
+<img src="https://github.com/mapi68/raspi-info/raw/master/images/raspi-info.png"><br>
 
 
 ## Changelog
