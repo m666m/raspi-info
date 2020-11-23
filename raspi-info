@@ -245,3 +245,5 @@ echo -e '\e[44m\e[1m'" Shell tip: `shuf -n 1 $TIP` "'\e[0m\e['$FIGLETCOLOR'm'
 figlet `hostname -s`
 echo -e '\e[0m'"\c"
 echo
+
+rm /tmp/interfaces
