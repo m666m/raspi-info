@@ -39,6 +39,7 @@ clear
 if [[ ! "${EUID}" -eq 0 ]]; then
 	echo && echo "Sorry but raspi-info requires elevated privileges to run."
 	echo "Please restart as root user or with sudo command." && echo
+	sleep 3 && end
 fi
 
 VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
