@@ -58,6 +58,9 @@ echo -e "Kernel version: `uname -r` (`uname -v`)"
 # Uptime and load average
 echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{print $2}'` / Uptime `uptime -p | sed "s/^[^ ]* //"`"
 
+# Package
+echo -e "You have `dpkg --get-selections | wc -l` deb packages installed (total available is `grep ^Package /var/lib/apt/lists/*_Packages | wc -l`)"
+
 # Apcupsd
 if [ -f /sbin/apcupsd ]; then
 	echo -e '\e[94m'"Line voltage: "`apcaccess | grep LINEV | awk '{print $3,$4}'` "/ Line frequency: "`apcaccess | grep LINEFREQ | awk '{print $3,$4}'` "/ Battery power: "`apcaccess | grep NOMPOWER | awk '{print $3,$4}'`
