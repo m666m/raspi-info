@@ -35,6 +35,12 @@ MEMTOT=$((`grep -i MemTotal /proc/meminfo | cut -f1 -dk | cut -f2 -d:` / (1024*1
 
 clear
 
+# ROOT CHECK
+if [[ ! "${EUID}" -eq 0 ]]; then
+	echo && echo "Sorry but raspi-info requires elevated privileges to run."
+	echo "Please restart as root user or with sudo command." && echo
+fi
+
 VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
 figlet "raspi-info $VERSION"
 echo
@@ -68,7 +74,7 @@ if [ "$CPUTEMP" -gt  "55000" ] && [ "$CPUTEMP" -lt  "65000"  ]; then
 if [ "$CPUTEMP" -gt  "65000" ] && [ "$CPUTEMP" -lt  "75000" ]; then
 	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'; fi
 if [ "$CPUTEMP" -gt  "75000" ];  then
-	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
+	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRY PI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
 
 # Volt and RAM
 if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
@@ -216,7 +222,7 @@ echo -e '\e[0m'
 BASEDIR=/
 NUMFOL=10
 count=1
-echo -e "These are the ${NUMFOL} biggest directories and files located in your RaspberryPi:"
+echo -e "These are the ${NUMFOL} biggest directories and files located in your Raspberry Pi:"
 du -a --max-depth=3 -x ${BASEDIR} | sort -rn | sed "1d" | head -"${NUMFOL}" |
 	while read size ndir; do
 	size="$(( size / 1024 ))"
