@@ -41,6 +41,7 @@ sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-
 
 <b>raspi-info (1.4-1); urgency=high</b>
   * raspi-info now requires elevated privileges to run
+  * Added info about installed packages
 
 <b>raspi-info (1.3-4); urgency=low</b>
   * Some cosmetic changes
