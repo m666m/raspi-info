@@ -10,7 +10,7 @@
 #                                                                               #
 #                                                                               #
 # MIT License                                                                   #
-# Copyright (c) 2019-2020 Massimo Pissarello                                    #
+# Copyright (c) 2019-2021 Massimo Pissarello                                    #
 # Permission is hereby granted, free of charge, to any person obtaining a copy  #
 # of this software and associated documentation files (the "Software"), to deal #
 # in the Software without restriction, including without limitation the rights  #
@@ -59,7 +59,10 @@ echo -e "Kernel version: `uname -r` (`uname -v`)"
 echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{print $2}'` / Uptime `uptime -p | sed "s/^[^ ]* //"`"
 
 # Package
-echo -e "You have `dpkg --get-selections | wc -l` deb packages installed (total available is `grep ^Package /var/lib/apt/lists/*_Packages | wc -l`)"
+if ls /var/lib/apt/lists/*_Packages >/dev/null 2>&1; then
+	echo -e "You have `dpkg --get-selections | wc -l` deb packages installed (total available is `grep ^Package /var/lib/apt/lists/*_Packages | wc -l`)"
+else echo -e "You have `dpkg --get-selections | wc -l` deb packages installed"
+fi
 
 # Apcupsd
 if [ -f /sbin/apcupsd ]; then
@@ -70,15 +73,16 @@ echo -e '\e[0m'
 
 # Temperature
 if [ "$CPUTEMP" -lt  "45000" ]; then
-	echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "45000" ] && [ "$CPUTEMP" -lt  "55000" ]; then
-	echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "55000" ] && [ "$CPUTEMP" -lt  "65000"  ]; then
-	echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "65000" ] && [ "$CPUTEMP" -lt  "75000" ]; then
-	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "75000" ];  then
-	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRY PI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
+	echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'
+elif [ "$CPUTEMP" -gt  "45000" ] && [ "$CPUTEMP" -lt  "55000" ]; then
+	echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'
+elif [ "$CPUTEMP" -gt  "55000" ] && [ "$CPUTEMP" -lt  "65000"  ]; then
+	echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'
+elif [ "$CPUTEMP" -gt  "65000" ] && [ "$CPUTEMP" -lt  "75000" ]; then
+	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'
+elif [ "$CPUTEMP" -gt  "75000" ];  then
+	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'
+fi
 
 # Volt and RAM
 if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
@@ -94,12 +98,12 @@ echo -e "CPU has `nproc` core and frequency now is `expr $CPUNOW / 1000` MHz (ra
 echo
 
 # Complete RAM data
-echo -e '\e[0m'"RAM usage and Swap in MB:"
+echo -e '\e[0m'"RAM usage and Swap in MB"
 echo -e '\e[33m'"`free --mega -t`"
 echo -e '\e[0m'
 
 # List USB
-echo -e '\e[0m'"USB devices:"
+echo -e '\e[0m'"USB devices"
 echo -e '\e[36m'"`lsusb`"
 echo -e '\e[0m'
 
@@ -180,9 +184,58 @@ for i in "${stringarray[@]}"; do
 	echo -n "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "
 done
 echo
-echo -e '\e[91m'
 
-route -n
+# Kernel IP routing table
+echo
+echo -e '\e[0m'"Kernel IP routing table"'\e[091m'
+route -n | grep -v "Kernel IP"
+
+# PiHole
+if [[ -f "/usr/local/bin/pihole" ]]; then
+	PiholeInfo() {
+		local summary
+		local cache_summary
+		summary=$(PiholeFTL "stats")
+		cache_info=$(PiholeFTL "cacheinfo")
+		clients=$(grep "unique_clients" <<< "${summary}" | grep -Eo "[0-9]+$")
+		domains_being_blocked_raw=$(grep "domains_being_blocked" <<< "${summary}" | grep -Eo "[0-9]+$")
+		dns_queries_today_raw=$(grep "dns_queries_today" <<< "$summary" | grep -Eo "[0-9]+$")
+		ads_blocked_today_raw=$(grep "ads_blocked_today" <<< "$summary" | grep -Eo "[0-9]+$")
+		ads_percentage_today_raw=$(grep "ads_percentage_today" <<< "$summary" | grep -Eo "[0-9.]+$" | rev | cut -c5- | rev)
+		cache_size=$(grep "cache-size" <<< "$cache_info" | grep -Eo "[0-9.]+$")
+		cache_deletes=$(grep "cache-live-freed" <<< "$cache_info" | grep -Eo "[0-9.]+$")
+		cache_inserts=$(grep "cache-inserted" <<< "$cache_info" | grep -Eo "[0-9.]+$")
+		latest_blocked=$(PiholeFTL recentBlocked)
+		top_blocked=$(PiholeFTL "top-ads (1)" | sed '/^wpad.*/d' | awk '{print $3}')
+		top_domain=$(PiholeFTL "top-domains (1)" | awk '{print $3}')
+	}
+	PiholeFTL() {
+		local ftl_port LINE
+		ftl_port=$(cat /run/pihole-FTL.port 2> /dev/null)
+		if [[ -n "$ftl_port" ]]; then
+			exec 3<>"/dev/tcp/127.0.0.1/$ftl_port"
+			if { "true" >&3; } 2> /dev/null; then
+				echo -e ">$1 >quit" >&3
+				read -r -t 1 LINE <&3
+				until [[ -z "${LINE}" ]] && [[ ! -t 3 ]]; do
+					echo "$LINE" >&1
+					read -r -t 1 LINE <&3
+				done
+				exec 3>&-
+				exec 3<&-
+			fi
+		else
+			echo "0"
+		fi
+	}
+	PiholeInfo
+	echo
+	echo -e '\e[0m'"Pi-hole Network-wide Ad Blocking"
+	echo -e '\e[33m'"Total queries: "$dns_queries_today_raw" / Queries Blocked: "$ads_blocked_today_raw" / Domains on Blocklist: "$domains_being_blocked_raw
+	echo -e "Clients: "$clients" / \e[91mPercent blocked: "$ads_percentage_today_raw"% \e[33m/ Cache inserted: "$cache_inserts
+	echo -e "Top Permitted Domain: "$top_domain" / Top Blocked Domain: "$top_blocked
+fi
+echo
 
 # Wireguard
 if [[ -f "/etc/wireguard/wg0.conf" ]]; then
@@ -190,19 +243,19 @@ if [[ -f "/etc/wireguard/wg0.conf" ]]; then
 		:
 	else
 		echo
-		echo -e '\e[33m'"Wireguard: "
+		echo -e '\e[33m'"Wireguard VPN tunnel"
 		echo -e '\e[0m'"Public key: "'\e[36m'"`wg | grep "public key" | awk '{print $3}'`"
 		echo -e '\e[0m'"Listening port: "'\e[36m'"`wg show | grep "listening port" | awk '{print $3}'`"
 		echo -e '\e[0m'"Peer: "'\e[36m'"`wg | grep peer | awk '{print $2}'`"
 		echo -e '\e[0m'"Endpoint: "'\e[36m'"`wg | grep endpoint | awk '{print $2}'`"
 		echo -e '\e[0m'"Allowed IP: "'\e[36m'"`wg | grep "allowed ips" | awk '{print $3}'`"
 		echo -e '\e[0m'"Latest handshake: "'\e[36m'"`wg | grep "latest handshake" | awk '{print $3,$4,$5,$6,$7,$8,$9,$10,$11}'`"
+		echo
 	fi
 fi
-echo
 
 # Ping various server
-echo -e '\e[0m'"Time to ping world common servers and DNS:"
+echo -e '\e[0m'"Time to ping world common servers and DNS"
 echo -e '\e[94m'"google.com `ping -c 1 google.com | tail -c 23 | head -c 4` ms / youtube.com `ping -c 1 youtube.com | tail -c 23 | head -c 4` ms / instagram.com `ping -c 1 instagram.com | tail -c 23 | head -c 4` ms / amazon.com `ping -c 1 amazon.com | tail -c 23 | head -c 4` ms"
 echo -e "DNS Google (8.8.8.8) `ping -c 1 8.8.8.8 | tail -c 23 | head -c 4` ms / DNS Quad9 (9.9.9.9) `ping -c 1 9.9.9.9 | tail -c 23 | head -c 4` ms / DNS CloudFlare (1.1.1.1) `ping -c 1 1.1.1.1 | tail -c 23 | head -c 4` ms"
 echo -e '\e[32m'
@@ -226,7 +279,7 @@ echo -e '\e[0m'
 BASEDIR=/
 NUMFOL=10
 count=1
-echo -e "These are the ${NUMFOL} biggest directories and files located in your Raspberry Pi:"
+echo -e "These are the ${NUMFOL} biggest directories and files located in your Raspberry Pi"
 du -a --max-depth=3 -x ${BASEDIR} | sort -rn | sed "1d" | head -"${NUMFOL}" |
 	while read size ndir; do
 	size="$(( size / 1024 ))"
@@ -237,7 +290,7 @@ echo -e '\e[0m'
 
 # Last login
 NUMLOGIN=5
-echo -e '\e[0m'"Last $NUMLOGIN users login:"'\e[33m'
+echo -e '\e[0m'"Last $NUMLOGIN users login"'\e[33m'
 last -F -n $NUMLOGIN | grep -v "wtmp"
 
 # About date
@@ -245,6 +298,10 @@ echo -e '\e[36m'"\c" && ncal -3 -M
 echo && echo -e '\e[32m'"Time now is `date +"%H:%M:%S"` in `timedatectl | awk '/Time zone:/ {print $3, $4, $5}'`"
 echo -e "Days from beginning of year `date +"%j"` / Weeks from beginning of year `date +"%W"`"'\e[91m\e[1m'
 echo -e '\e[0m'
+
+# Bitcoin
+BTC=`curl -s https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
+echo " 1 Bitcoin = "$BTC" USD "
 
 # Tips and random color for fitglet
 TIP=/usr/lib/raspi-info/shell-tips

@@ -10,7 +10,7 @@
 #                                                                               #
 #                                                                               #
 # MIT License                                                                   #
-# Copyright (c) 2019-2020 Massimo Pissarello                                    #
+# Copyright (c) 2019-2021 Massimo Pissarello                                    #
 # Permission is hereby granted, free of charge, to any person obtaining a copy  #
 # of this software and associated documentation files (the "Software"), to deal #
 # in the Software without restriction, including without limitation the rights  #
@@ -36,22 +36,25 @@ clear
 if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
 	echo -e '\e[33m'"$RASPMOD with ${MEMTOT}GB RAM"; else
 	echo -e '\e[33m'"$RASPMOD"; fi
-echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'`"
+echo -e '\e[32m'"`lsb_release -d | awk '/Description:/ {print $2, $3s $4, $5}'`"
 
 # Uptime and load average
 echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{print $2}'`"
 
 # Temperature
-if [ "$CPUTEMP" -lt  "45000" ]; then
-	echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "45000" ] && [ "$CPUTEMP" -lt  "55000" ]; then
-	echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "55000" ] && [ "$CPUTEMP" -lt  "65000"  ]; then
-	echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "65000" ] && [ "$CPUTEMP" -lt  "75000" ]; then
-	echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'; fi
-if [ "$CPUTEMP" -gt  "75000" ];  then
-	echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'; fi
+if [ `whoami` = 'root' ]; then
+	if [ "$CPUTEMP" -lt  "45000" ]; then
+		echo -e '\e[36m'"CPU `vcgencmd measure_temp` ---> LOW TEMPERATURE"'\e[0m'
+	elif [ "$CPUTEMP" -gt  "45000" ] && [ "$CPUTEMP" -lt  "55000" ]; then
+		echo -e '\e[33m'"CPU `vcgencmd measure_temp` ---> NORMAL TEMPERATURE"'\e[0m'
+	elif [ "$CPUTEMP" -gt  "55000" ] && [ "$CPUTEMP" -lt  "65000"  ]; then
+		echo -e '\e[33m\e[1m'"CPU `vcgencmd measure_temp` ---> NORMAL-HIGH TEMPERATURE"'\e[0m'
+	elif [ "$CPUTEMP" -gt  "65000" ] && [ "$CPUTEMP" -lt  "75000" ]; then
+		echo -e '\e[31m'"CPU `vcgencmd measure_temp`---> HIGH TEMPERATURE!"'\e[0m'
+	elif [ "$CPUTEMP" -gt  "75000" ];  then
+		echo -e '\e[31m\e[1m'"CPU `vcgencmd measure_temp` ---> PLEASE SHUTDOWN RASPBERRYPI: TEMPERATURE IS VERY HIGH!"'\e[0m'
+	fi
+fi
 
 # Check Internet and IP
 EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
@@ -79,6 +82,10 @@ echo -e '\e[0m'
 echo -e '\e[96m'"Time now is `date +"%H:%M:%S"` in `timedatectl | awk '/Time zone:/ {print $3, $4, $5}'`"
 echo -e "Uptime `uptime -p | sed "s/^[^ ]* //"`"
 echo -e '\e[0m'
+
+# Bitcoin
+BTC=`curl -s https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
+echo " 1 Bitcoin = "$BTC" USD "
 
 # Tips and random color for fitglet
 TIP=/usr/lib/raspi-info/shell-tips
