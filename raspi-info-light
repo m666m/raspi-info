@@ -84,8 +84,8 @@ echo -e "Uptime `uptime -p | sed "s/^[^ ]* //"`"
 echo -e '\e[0m'
 
 # Bitcoin
-BTC=`curl -s https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
-echo " 1 Bitcoin = "$BTC" USD "
+BTCUSD=`curl -s https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
+echo " 1 Bitcoin = "$BTCUSD" USD "
 
 # Tips and random color for fitglet
 TIP=/usr/lib/raspi-info/shell-tips
