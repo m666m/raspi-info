@@ -40,7 +40,7 @@ sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-
 ## Changelog
 
 <b>raspi-info (1.5-1); urgency=medium</b>
-  * All raspi-info now show Bitcoin price
+  * Show Bitcoin price and main exchange rates
   * Added support for Pi-hole
 
 <b>raspi-info (1.4-1); urgency=high</b>
