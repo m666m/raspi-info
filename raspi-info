@@ -299,13 +299,9 @@ echo && echo -e '\e[32m'"Time now is `date +"%H:%M:%S"` in `timedatectl | awk '/
 echo -e "Days from beginning of year `date +"%j"` / Weeks from beginning of year `date +"%W"`"'\e[91m\e[1m'
 echo -e '\e[0m'
 
-# Bitcoin & FOREX
+# Bitcoin
 BTCUSD=`curl -s https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
-EURUSD=`curl -s "https://www.xe.com/currencyconverter/convert/\?Amount\=1\&From\=EUR\&To\=USD" | awk -F 'EUR / USD' '{printf substr($2,14,7);}'`
-GBPUSD=`curl -s "https://www.xe.com/currencyconverter/convert/\?Amount\=1\&From\=GBP\&To\=USD" | awk -F 'GBP / USD' '{printf substr($2,14,7);}'`
-USDJPY=`curl -s "https://www.xe.com/currencyconverter/convert/\?Amount\=1\&From\=USD\&To\=JPY" | awk -F 'USD / JPY' '{printf substr($2,14,7);}'`
-USDCHF=`curl -s "https://www.xe.com/currencyconverter/convert/\?Amount\=1\&From\=USD\&To\=CHF" | awk -F 'USD / CHF' '{printf substr($2,14,7);}'`
-echo -e '\e[40;38;5;82m'"BTC-USD="$BTCUSD" / EUR-USD="$EURUSD" / GBP-USD="$GBPUSD" / USD-JPY="$USDJPY" / USD-CHF="$USDCHF'\e[0m'
+echo -e '\e[40;38;5;82m'" 1 Bitcoin = "$BTCUSD" USD "'\e[0m'
 
 # Tips and random color for fitglet
 TIP=/usr/lib/raspi-info/shell-tips
