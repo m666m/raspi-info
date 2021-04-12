@@ -40,6 +40,9 @@ sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-
 
 ## Changelog
 
+<b>raspi-info (1.5-3); urgency=medium</b>
+  * Added bash version only in raspi-info
+
 <b>raspi-info (1.5-2); urgency=low</b>
   * Some cosmetic changes
 
