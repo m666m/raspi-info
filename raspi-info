@@ -54,6 +54,7 @@ if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
 echo -e '\e[32m'"Hardware: "`cat /proc/cpuinfo | grep Hardware | cut -d " " -f 2` "/ Revision: "`cat /proc/cpuinfo | grep Revision | cut -d " " -f 2` "/ Serial number: "`cat /proc/cpuinfo | grep Serial | cut -d " " -f 2`
 echo -e "Operative system: `lsb_release -d | awk '/Description:/ {print $2, $3, $4, $5}'` / Architecture: `uname -m`"
 echo -e "Kernel version: `uname -r` (`uname -v`)"
+echo -e `bash --version | head -n 1`
 
 # Uptime and load average
 echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{print $2}'` / Uptime `uptime -p | sed "s/^[^ ]* //"`"
