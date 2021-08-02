@@ -4,13 +4,14 @@
 UPVER=$(curl -Ssl https://raw.githubusercontent.com/mapi68/raspi-info/master/version)
 VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
 
-if [[ ! "$VERSION" -gt "$UPVER" ]]; then
+if [[ ! "$VERSION" -lt "$UPVER" ]]; then
 	echo -e '\e[33m'"You have latest version: no need update"
 	echo -e '\e[0m'
+	exit 0
 fi
 
 
 if [[ `uname -m` = aarch64 ]]; then
 	wget -P /tmp/ https://github.com/mapi68/raspi-info/raw/master/raspi-info_latest-64.deb; else
 	wget -P /tmp/ https://github.com/mapi68/raspi-info/raw/master/raspi-info_latest-32.deb; fi
-sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-info_latest*.deb
+sudo dpkg -i /tmp/raspi-info_latest-*.deb; sudo apt install -f -y; rm /tmp/raspi-info_latest-*
