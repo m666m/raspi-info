@@ -4,10 +4,10 @@
 UPVER=$(curl -sSL https://raw.githubusercontent.com/mapi68/raspi-info/master/version)
 VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
 
-if [[ ! "$VERSION" -gt "$UPVER" ]]; then
+if [[ "$VERSION" -ge "$UPVER" ]]; then
 	echo -e '\e[33m'"You have latest version: no need update"
 	echo -e '\e[0m'
-	exit 0
+	#exit 0
 fi
 
 
