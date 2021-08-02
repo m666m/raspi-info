@@ -40,6 +40,10 @@ sudo dpkg -i /tmp/raspi-info_latest*.deb; sudo apt install -f -y; rm /tmp/raspi-
 
 ## Changelog
 
+<b>raspi-info (20210802); urgency=high</b>
+  * Now version is based upon date
+  * Check for automatic update in raspi-info-light
+
 <b>raspi-info (1.5-3); urgency=medium</b>
   * Added bash version only in raspi-info
 
