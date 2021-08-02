@@ -33,7 +33,7 @@ MEMTOT=$((`grep -i MemTotal /proc/meminfo | cut -f1 -dk | cut -f2 -d:` / (1024*1
 clear
 
 # Check version
-UPVER=$(curl -Ssl https://raw.githubusercontent.com/mapi68/raspi-info/master/version)
+UPVER=$(curl -sSL https://raw.githubusercontent.com/mapi68/raspi-info/master/version)
 VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
 if [[ "$VERSION" -lt "$UPVER" ]]; then
 	echo -e '\e[31m'"New version available: please run 'raspi-info-update'"; fi
