@@ -32,6 +32,12 @@ MEMTOT=$((`grep -i MemTotal /proc/meminfo | cut -f1 -dk | cut -f2 -d:` / (1024*1
 
 clear
 
+# Check version
+UPVER=$(curl -Ssl https://raw.githubusercontent.com/mapi68/raspi-info/master/version)
+VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
+if [[ "$UPVER" -gt "$VERSION" ]]; then
+	echo -e '\e[31m'"New version available: please run 'raspi-info-update'"; fi
+
 # System
 if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
 	echo -e '\e[33m'"$RASPMOD with ${MEMTOT}GB RAM"; else
