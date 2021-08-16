@@ -36,7 +36,7 @@ clear
 UPVER=$(curl -sSL https://raw.githubusercontent.com/mapi68/raspi-info/master/version)
 VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
 if [[ "$VERSION" -lt "$UPVER" ]]; then
-	echo -e '\e[31m'"New version available: please run 'raspi-info-update'"; fi
+	echo -e '\e[31m\e[1m'"NEW VERSION AVAILABLE: please run 'raspi-info-update'"; fi
 
 # System
 if [[ "$RASPMOD" == "Raspberry Pi 4"* ]]; then
