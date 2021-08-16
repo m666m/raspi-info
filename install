@@ -1,5 +1,3 @@
-#!/bin/bash
-
 RI=raspi-info
 UPVER=$(curl -sSL https://raw.githubusercontent.com/mapi68/$RI/master/version)
 VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
