@@ -16,7 +16,7 @@ Automatic use: when you login through SSH (only raspi-info-light).<br>
 
 ## Installation
 ```bash
-curl -sSL https://raw.githubusercontent.com/mapi68/raspi-info/master/install | bash
+curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/install | bash
 ```
 
 ## Screenshot
