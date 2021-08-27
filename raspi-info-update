@@ -14,7 +14,7 @@ install() {
 }
 
 if [[ "$VERSION" -ge "$UPVER" ]]; then
-	echo -e '\e[33m'"You have latest version $UPVERof $RI: no need update"
+	echo -e '\e[33m'"You have latest version $UPVER of $RI: no need update"
 	echo -e '\e[0m'
 else install
 fi
