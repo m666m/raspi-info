@@ -13,8 +13,9 @@ install() {
 	sudo apt install -qq -y /tmp/"$RI"_latest-*.deb; rm /tmp/"$RI"_latest-*
 }
 
-if [[ "$VERSION" -ge "$UPVER" ]]; then
-	echo -e '\e[33m'"You have latest version $UPVER: no need update"
+if ! [ -f /usr/bin/$RI ]; then
+	install
+else [[ "$VERSION" -ge "$UPVER" ]]
+	echo -e '\e[33m'"You have version $VERSION: no need install"
 	echo -e '\e[0m'
-else install
 fi
