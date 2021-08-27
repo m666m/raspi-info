@@ -5,7 +5,7 @@ UPVER=$(curl -sSfL https://raw.githubusercontent.com/mapi68/$RI/master/version)
 VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
 
 install() {
-	echo -e '\e[35m'"Downloading latest version $UPVER of raspi-info..."
+	echo -e '\e[35m'"Downloading latest version $UPVER of $RI..."
 	echo -e '\e[0m'
 	if [[ `uname -m` = aarch64 ]]; then
 		wget -nv -P /tmp/ https://github.com/mapi68/"$RI"/raw/master/"$RI"_latest-64.deb; else
@@ -14,7 +14,7 @@ install() {
 }
 
 if [[ "$VERSION" -ge "$UPVER" ]]; then
-	echo -e '\e[33m'"You have latest version $UPVER: no need update"
+	echo -e '\e[33m'"You have latest version $UPVERof $RI: no need update"
 	echo -e '\e[0m'
 else install
 fi
