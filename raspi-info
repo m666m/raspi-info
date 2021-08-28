@@ -59,6 +59,9 @@ echo -e `bash --version | head -n 1`
 # Uptime and load average
 echo -e "Load average (1m, 5m, 15m)`uptime | awk -F'[a-z]:' '{print $2}'` / Uptime `uptime -p | sed "s/^[^ ]* //"`"
 
+# Startup time
+systemd-analyze | head -n 1
+
 # Package
 if ls /var/lib/apt/lists/*_Packages >/dev/null 2>&1; then
 	echo -e "You have `dpkg --get-selections | wc -l` deb packages installed (total available is `grep ^Package /var/lib/apt/lists/*_Packages | wc -l`)"
