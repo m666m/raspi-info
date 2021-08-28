@@ -17,9 +17,7 @@ if [[ ! -f /usr/bin/$RI ]]; then
 	echo -e '\e[1;31m'"$RI is not installed in your Raspberry Pi"
 	echo -e '\e[0m'
 	exit 1
-fi
-
-if [[ "$VERSION" -ge "$UPVER" ]]; then
+elif [[ "$VERSION" -ge "$UPVER" ]]; then
 	echo -e '\e[1;32m'"You have latest version $UPVER of $RI: no need update"
 	echo -e '\e[0m'
 else install
