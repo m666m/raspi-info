@@ -314,6 +314,13 @@ echo -e '\e[44m\e[1m'" Shell tip: `shuf -n 1 $TIP` "'\e[0m\e['$FIGLETCOLOR'm'
 
 # Print hostname
 figlet `hostname -s`
+
+# Check version
+UPVER=$(curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/version)
+VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
+if [[ "$VERSION" -lt "$UPVER" ]]; then
+	echo -e '\e[1;31m'"NEW VERSION AVAILABLE: please run 'raspi-info-update'"; fi
+
 echo -e '\e[0m'"\c"
 echo
 
