@@ -7,10 +7,8 @@ VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
 install() {
 	echo -e '\e[1;31m'"Installing latest version $UPVER of $RI..."
 	echo -e '\e[0m'
-	if [[ `uname -m` = aarch64 ]]; then
-		wget -nv -P /tmp/ https://github.com/mapi68/"$RI"/raw/master/"$RI"_latest-64.deb; else
-		wget -nv -P /tmp/ https://github.com/mapi68/"$RI"/raw/master/"$RI"_latest-32.deb; fi
-	sudo apt install -qq -y /tmp/"$RI"_latest-*.deb; rm /tmp/"$RI"_latest-*
+	wget -nv -P /tmp/ https://github.com/mapi68/"$RI"/raw/master/"$RI"_latest.deb
+	sudo apt install -qq -y /tmp/"$RI"_latest.deb; rm /tmp/"$RI"_latest.deb
 }
 
 if ! [ -f /usr/bin/$RI ]; then
