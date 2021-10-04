@@ -125,6 +125,7 @@ ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP \
 INTERFACE=$(ip -o -f inet addr show | awk '/scope global/ {print $2, $4}')
 BROADCAST=$(ip -o -f inet addr show | awk '!/scope host lo/' | awk '!/scope global wg/ {print $2, $6}')
 DOMAIN=$(cat /etc/resolv.conf | grep domain | awk '{print $2}')
+SEARCH=$(cat /etc/resolv.conf | grep search | awk '{print $2}')
 NAMESERVERS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
 
 # Create interfaces
@@ -177,10 +178,15 @@ fi
 # Print connection data
 echo -e '\e[0m'"Broadcast (or peer):" '\e[36m'$BROADCAST
 if [[ $DOMAIN = "" ]]; then
-	echo -e '\e[0m'"Domain: " '\e[36m'"\bnot available\c"
+	echo -e -n '\e[0m'"Domain: " '\e[36m'"\bnot available\c"
+else
+	echo -e -n '\e[0m'"Domain:" '\e[36m'$DOMAIN
+fi
+if [[ $SEARCH = "" ]]; then
+	echo -e -n '\e[0m'"Search: " '\e[36m'"\bnot available\c"
 	echo
 else
-	echo -e '\e[0m'"Domain:" '\e[36m'$DOMAIN
+	echo -e -n '\e[0m'"Search:" '\e[36m'$SEARCH
 fi
 stringarray=($NAMESERVERS)
 echo -e -n '\e[0m'"Name Servers:" '\e[36m'
