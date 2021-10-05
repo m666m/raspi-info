@@ -188,12 +188,15 @@ if [[ $SEARCH = "" ]]; then
 else
 	echo -e -n '\e[0m'" Search:" '\e[36m'$SEARCH
 fi
-stringarray=($NAMESERVERS)
-echo -e -n '\e[0m'"Name Servers:" '\e[36m'
-for i in "${stringarray[@]}"; do
-	echo -n "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "
-done
-echo
+
+if grep -q nameserver /etc/resolv.conf; then
+	stringarray=($NAMESERVERS)
+	echo -e '\e[0m'"Name Servers:" '\e[36m'
+	for i in "${stringarray[@]}"; do
+		echo -n "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "
+		echo
+	done
+fi
 
 # Kernel IP routing table
 echo
@@ -291,7 +294,7 @@ NUMFOL=10
 count=1
 echo -e "These are the ${NUMFOL} biggest directories and files located in your Raspberry Pi"
 du -a --max-depth=3 -x ${BASEDIR} | sort -rn | sed "1d" | head -"${NUMFOL}" |
-	while read size ndir; do
+while read size ndir; do
 	size="$(( size / 1024 ))"
 	echo -e '\e[95m'"Number ${count}: ${ndir} is ${size} Mb"
 	((count++))
