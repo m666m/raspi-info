@@ -177,27 +177,22 @@ fi
 
 # Print connection data
 echo -e '\e[0m'"Broadcast (or peer):" '\e[36m'$BROADCAST
+
 if [[ $DOMAIN = "" ]]; then
 	echo -e -n '\e[0m'"Domain: " '\e[36m'"\bnot available\c"
 else
 	echo -e -n '\e[0m'"Domain:" '\e[36m'$DOMAIN
 fi
 if [[ $SEARCH = "" ]]; then
-	echo -e -n '\e[0m'" Search: " '\e[36m'"\bnot available\c"
-	echo
+	echo -e -n '\e[0m'" Search: " '\e[36m'"\bnot available\c";	echo
 else
-	echo -e -n '\e[0m'" Search:" '\e[36m'$SEARCH
+	echo -e -n '\e[0m'" Search:" '\e[36m'$SEARCH; echo
 fi
 
-if grep -q nameserver /etc/resolv.conf; then
-	stringarray=($NAMESERVERS)
-	echo
-	echo -e -n '\e[0m'"Name Servers:" '\e[36m'
-	for i in "${stringarray[@]}"; do
-		echo -n "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "
-		echo
-	done
-fi
+stringarray=($NAMESERVERS)
+echo -e -n '\e[0m'"Name Servers:" '\e[36m'
+for i in "${stringarray[@]}"; do
+	echo -e "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "; done
 
 # Kernel IP routing table
 echo
