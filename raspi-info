@@ -191,6 +191,7 @@ fi
 
 if grep -q nameserver /etc/resolv.conf; then
 	stringarray=($NAMESERVERS)
+	echo
 	echo -e -n '\e[0m'"Name Servers:" '\e[36m'
 	for i in "${stringarray[@]}"; do
 		echo -n "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "
