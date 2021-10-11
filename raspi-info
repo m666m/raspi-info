@@ -309,7 +309,7 @@ echo -e "Days from beginning of year `date +"%j"` / Weeks from beginning of year
 echo -e '\e[0m'
 
 # Bitcoin
-BTCUSD=`curl -s https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
+BTCUSD=`curl -sk https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
 echo -e '\e[40;38;5;82m'" 1 Bitcoin = "$BTCUSD" USD "'\e[0m'
 
 # Tips and random color for fitglet
