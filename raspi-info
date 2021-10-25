@@ -98,7 +98,9 @@ fi
 # CPU frequency
 CPUMIN=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`
 CPUMAX=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`
+CPUGOV=`cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor | awk '{printf "%s ",$1}'`
 echo -e "CPU has `nproc` core and frequency now is `expr $CPUNOW / 1000` MHz (range is from `expr $CPUMIN / 1000` MHz to `expr $CPUMAX / 1000` MHz)"
+echo -e "CPU scaling governor is $CPUGOV"
 echo
 
 # Complete RAM data
