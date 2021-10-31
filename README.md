@@ -21,6 +21,7 @@ RASPI-INFO provides too more than 100 "shell tips" that can be useful to help yo
 curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info-install | bash
 ```
 
+
 ## Screenshot
 ### raspi-info-light
 ![raspi-info-light](https://github.com/mapi68/raspi-info/raw/master/images/raspi-info-light.png)
