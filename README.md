@@ -12,15 +12,12 @@
 Direct use from shell: raspi-info or raspi-info-light. Automatic use: when you login through SSH (only raspi-info-light).
 RASPI-INFO provides too more than 100 "shell tips" that can be useful to help you in bash!
 
-
 ![logo](https://github.com/mapi68/raspi-info/raw/master/images/raspi-info-logo.png)
-
 
 ## Installation
 ```bash
 curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info-install | bash
 ```
-
 
 ## Screenshot
 ### raspi-info-light
@@ -40,7 +37,6 @@ curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info
 
 ### raspi-info
 ![raspi-info](https://github.com/mapi68/raspi-info/raw/master/images/raspi-info.png)
-
 
 ## Changelog
 
