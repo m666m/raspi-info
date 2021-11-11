@@ -133,7 +133,7 @@ INTERFACE=$(ip -o -f inet addr show | awk '/scope global/ {print $2, $4}')
 BROADCAST=$(ip -o -f inet addr show | awk '!/scope host lo/' | awk '!/scope global wg/ {print $2, $6}')
 DOMAIN=$(cat /etc/resolv.conf | grep domain | awk '{print $2}')
 SEARCH=$(cat /etc/resolv.conf | grep search | awk '{print $2}')
-NAMESERVERS=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}')
+NAMESERVERS=$(cat /etc/resolv.conf | grep 'nameserver ' | awk '{print $2}')
 
 # Create interfaces
 echo
