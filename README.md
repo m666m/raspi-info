@@ -13,7 +13,7 @@ Direct use from shell: raspi-info or raspi-info-light. Automatic use: when you l
 RASPI-INFO provides too more than 100 "shell tips" that can be useful to help you in bash!
 When a new update will be released you'll receive a message at the end of program.
 
-![logo](https://github.com/mapi68/raspi-info/raw/master/images/raspi-info-logo.png)
+![logo](images/raspi-info-logo.png)
 
 ## Installation
 ```bash
@@ -22,22 +22,22 @@ curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info
 
 ## Screenshot
 ### raspi-info-light
-![raspi-info-light](https://github.com/mapi68/raspi-info/raw/master/images/raspi-info-light.png)
+![raspi-info-light](images/raspi-info-light.png)
 
 ### general-info
-![general-info](https://github.com/mapi68/raspi-info/raw/master/images/general-info.png)
+![general-info](images/general-info.png)
 
 ### partition-info
-![partition-info](https://github.com/mapi68/raspi-info/raw/master/images/partition-info.png)
+![partition-info](images/partition-info.png)
 
 ### folder-info
-![folder-info](https://github.com/mapi68/raspi-info/raw/master/images/folder-info.png)
+![folder-info](images/folder-info.png)
 
 ### wireguard-info
-![logo](https://github.com/mapi68/raspi-info/raw/master/images/wireguard-info.png)
+![logo](images/wireguard-info.png)
 
 ### raspi-info
-![raspi-info](https://github.com/mapi68/raspi-info/raw/master/images/raspi-info.png)
+![raspi-info](images/raspi-info.png)
 
 ## Changelog
 
