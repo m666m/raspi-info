@@ -22,16 +22,15 @@ curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info
 ```
 
 ## Commands
-**raspi-info**
+**raspi-info** (main window, with many info)
 
-**raspi-info-light**
+**raspi-info-light** (light version, start by default when you make a SSH connection)
 
-**raspi-info-check**
+**raspi-info-check** (simple tool that check in real time temp, clock and volt)
 
-**raspi-info-install**
+**raspi-info-install** (install raspi-info)
 
-**raspi-info-update**
-
+**raspi-info-update** (update raspi-info)
 
 ## Screenshot
 ### raspi-info-light
