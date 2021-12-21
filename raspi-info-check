@@ -4,9 +4,9 @@
 # curl -sSfL https://tinyurl.com/raspi-info-check | bash
 
 COLOR=`shuf -i91-96 -n1`
-echo && echo
-echo -e '\e[0m\e['$COLOR'm      RASPI-INFO-CHECK'
-echo -e '    Press CTRL + C to exit'
+echo && echo && echo
+echo -e '\e[0m\e['$COLOR'm         RASPI-INFO-CHECK'
+echo -e '      Press CTRL + C to exit'
 echo -e '\e[0m'
 echo "    Time    Temp   Clock   Volt"
 while true; do
