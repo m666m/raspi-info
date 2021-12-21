@@ -10,8 +10,9 @@ install() {
 	sudo apt install -qq -y /tmp/"$RI"_latest.deb; rm /tmp/"$RI"_latest.deb
 }
 
-if ! [ -f /usr/bin/$RI ]; then
+if [[ ! -f /usr/bin/$RI ]]; then
 	install
+	exit 0
 else VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
 	[[ "$VERSION" -ge "$UPVER" ]]
 	echo -e '\e[1;32m'"You have version $VERSION of $RI: no need install"
