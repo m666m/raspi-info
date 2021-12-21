@@ -48,6 +48,9 @@ curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info
 ### wireguard-info
 ![logo](images/wireguard-info.png)
 
+### raspi-info-check
+![raspi-info-check](images/raspi-info-check.png)
+
 ### raspi-info
 ![raspi-info](images/raspi-info.png)
 
