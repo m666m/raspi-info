@@ -2,6 +2,7 @@
 
 * [Overview](#overview)
 * [Installation](#installation)
+* [Commands](#commands)
 * [Screenshot](#screenshot)
 * [Changelog](#changelog)
 * [License](#license)
@@ -19,6 +20,18 @@ When a new update will be released you'll receive a message at the end of progra
 ```bash
 curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info-install | bash
 ```
+
+## Commands
+**raspi-info**
+
+**raspi-info-light**
+
+**raspi-info-check**
+
+**raspi-info-install**
+
+**raspi-info-update**
+
 
 ## Screenshot
 ### raspi-info-light
