@@ -14,8 +14,8 @@ if [[ ! -f /usr/bin/$RI ]]; then
 	echo -e '\e[1;31m'"$RI is not installed in your Raspberry Pi"
 	echo -e '\e[0m'
 	exit 1
-elif VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
-	[[ "$VERSION" -ge "$UPVER" ]]; then
+elif VER=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
+	[[ "$VER" -ge "$UPVER" ]]; then
 	echo -e '\e[1;32m'"You have latest version $UPVER of $RI: no need update"
 	echo -e '\e[0m'
 else install

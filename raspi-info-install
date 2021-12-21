@@ -13,8 +13,8 @@ install() {
 if [[ ! -f /usr/bin/$RI ]]; then
 	install
 	exit 0
-else VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
-	[[ "$VERSION" -ge "$UPVER" ]]
-	echo -e '\e[1;32m'"You have version $VERSION of $RI: no need install"
+else VER=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
+	[[ "$VER" -ge "$UPVER" ]]
+	echo -e '\e[1;32m'"You have version $VER of $RI: no need install"
 	echo -e '\e[0m'
 fi
