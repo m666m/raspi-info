@@ -2,7 +2,6 @@
 
 RI=raspi-info
 UPVER=$(curl -sSfL https://raw.githubusercontent.com/mapi68/$RI/master/version)
-VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
 
 install() {
 	echo -e '\e[1;31m'"Installing latest version $UPVER of $RI..."
@@ -13,7 +12,8 @@ install() {
 
 if ! [ -f /usr/bin/$RI ]; then
 	install
-else [[ "$VERSION" -ge "$UPVER" ]]
+else VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
+	[[ "$VERSION" -ge "$UPVER" ]]
 	echo -e '\e[1;32m'"You have version $VERSION of $RI: no need install"
 	echo -e '\e[0m'
 fi

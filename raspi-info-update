@@ -2,7 +2,6 @@
 
 RI=raspi-info
 UPVER=$(curl -sSfL https://raw.githubusercontent.com/mapi68/$RI/master/version)
-VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
 
 install() {
 	echo -e '\e[1;31m'"Installing latest version $UPVER of $RI..."
@@ -15,7 +14,8 @@ if [[ ! -f /usr/bin/$RI ]]; then
 	echo -e '\e[1;31m'"$RI is not installed in your Raspberry Pi"
 	echo -e '\e[0m'
 	exit 1
-elif [[ "$VERSION" -ge "$UPVER" ]]; then
+elif VERSION=$(dpkg -s $RI | grep '^Version:' | awk '/:/ {print $2}')
+	[[ "$VERSION" -ge "$UPVER" ]]; then
 	echo -e '\e[1;32m'"You have latest version $UPVER of $RI: no need update"
 	echo -e '\e[0m'
 else install
