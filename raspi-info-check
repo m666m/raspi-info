@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# SHORT LINK:
+# curl -sSfL https://tinyurl.com/y6cqhoc3 | bash
+
+COLOR=`shuf -i91-96 -n1`
+echo && echo
+echo -e '\e[0m\e['$COLOR'm    RASPI-INFO-CHECK'
+echo -e '  Press CTRL + C to exit'
+echo -e '\e[0m'
+echo "  Time    Temp   Clock   Volt"
+while true; do
+	let ++Counter
+	if [ ${Counter} -eq 15 ]; then
+		Counter=0
+	fi
+	Temp=$(vcgencmd measure_temp | cut -f2 -d=)
+	Clockspeed=$(vcgencmd measure_clock arm | awk -F"=" '{printf ("%0.0f",$2/1000000); }' )
+	CoreVolt=$(vcgencmd measure_volts | cut -f2 -d= | sed 's/000//')
+	echo -e "$(date '+%H:%M:%S') ${Temp} $(printf '%4s' ${Clockspeed})MHz ${CoreVolt}"
+	sleep 3
+done
