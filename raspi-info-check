@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # SHORT LINK:
-# curl -sSfL https://tinyurl.com/raspi-info-check | bash
+# curl -sSfL https://tiny.one/raspi-info-check | bash
 
 COLOR=`shuf -i91-96 -n1`
 echo && echo && echo
