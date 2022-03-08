@@ -196,6 +196,8 @@ echo -e -n '\e[0m'"Name Servers:" '\e[36m'
 for i in "${stringarray[@]}"; do
 	echo -e "$i (ping: `ping -c 1 $i | awk -F '/' 'END {print $5}'` ms) "; done
 
+echo && echo -e '\e[33m'"********* Please wait: trying to get advanced Internet information *********"
+
 # Check Internet and IP
 echo
 EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
