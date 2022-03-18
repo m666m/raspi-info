@@ -103,7 +103,7 @@ if [[ "$VERSION" -lt "$UPVER" ]]; then
 
 # Need reboot?
 if [ -f /var/run/reboot-required ]; then
-	echo -e '\e[1;31m'"*** System restart required ***"; fi
+	echo -e '\e[1;31m'"***** System restart required *****"; fi
 
 echo -e '\e[0m'"\c"
 echo
