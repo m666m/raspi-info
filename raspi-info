@@ -279,7 +279,7 @@ echo -e "DNS Google (8.8.8.8) `ping -c 1 8.8.8.8 | tail -c 23 | head -c 4` ms / 
 echo -e '\e[32m'
 
 # File system
-df -h | grep -v "tmpfs" | grep -v "udev"
+df -h | grep -v "udev"
 
 # List all sd
 echo
