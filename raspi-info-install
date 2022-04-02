@@ -4,7 +4,7 @@ RI=raspi-info
 UPVER=$(curl -sSfL https://raw.githubusercontent.com/mapi68/$RI/master/version)
 
 install() {
-	echo -e '\e[1;31m'"Installing latest version $UPVER of $RI..."
+	echo -e '\e[1;33m'"Installing latest version $UPVER of $RI..."
 	echo -e '\e[0m'
 	wget -nv -P /tmp/ https://github.com/mapi68/"$RI"/raw/master/"$RI"_latest.deb
 	sudo apt install -qq -y /tmp/"$RI"_latest.deb; rm /tmp/"$RI"_latest.deb

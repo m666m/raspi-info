@@ -99,11 +99,11 @@ figlet `hostname -s`
 UPVER=$(curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/version)
 VERSION=$(dpkg -s raspi-info | grep '^Version:' | awk '/:/ {print $2}')
 if [[ "$VERSION" -lt "$UPVER" ]]; then
-	echo -e '\e[1;31m'"NEW VERSION AVAILABLE: please run 'raspi-info-update'"; fi
+	echo -e '\e[1;33m'"NEW VERSION AVAILABLE: please run 'raspi-info-update'"; fi
 
 # Need reboot?
 if [ -f /var/run/reboot-required ]; then
-	echo -e '\e[1;31m'"***** System restart required *****"; fi
+	echo -e '\e[1;31m'"***** SYSTEM RESTART REQUIRED *****"; fi
 
 echo -e '\e[0m'"\c"
 echo
