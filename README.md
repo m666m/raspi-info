@@ -1,9 +1,9 @@
 # raspi-info
 
 * [Overview](#overview)
-* [Installation](#installation)
+* [Install](#install)
+* [Uninstall](#uninstall)
 * [Commands](#commands)
-* [Uninstallation](#uninstallation)
 * [Screenshot](#screenshot)
 * [Changelog](#changelog)
 * [License](#license)
@@ -17,9 +17,19 @@ When a new update will be released you'll receive a message at the end of progra
 
 ![logo](images/raspi-info-logo.png)
 
-## Installation
+## Install
 ```bash
 curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info-install | bash
+```
+
+## Uninstall
+```bash
+sudo apt --purge remove raspi-info -y
+```
+
+If you want to remove with installed dependencies:
+```bash
+sudo apt --purge autoremove raspi-info -y
 ```
 
 ## Commands
@@ -32,16 +42,6 @@ curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info
 **raspi-info-install** (install raspi-info)
 
 **raspi-info-update** (update raspi-info)
-
-## Uninstallation
-```bash
-sudo apt --purge remove raspi-info -y
-```
-
-If you want to remove with installed dependencies:
-```bash
-sudo apt --purge autoremove raspi-info -y
-```
 
 ## Screenshot
 ### raspi-info-light
