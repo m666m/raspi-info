@@ -27,7 +27,7 @@ curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info
 sudo apt --purge remove raspi-info -y
 ```
 
-If you want to remove with installed dependencies:
+If you want to remove installed dependencies too:
 ```bash
 sudo apt --purge autoremove raspi-info -y
 ```
