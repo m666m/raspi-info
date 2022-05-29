@@ -3,7 +3,7 @@
 * [Overview](#overview)
 * [Installation](#installation)
 * [Commands](#commands)
-* [Uninstall](#uninstall)
+* [Uninstallation](#uninstallation)
 * [Screenshot](#screenshot)
 * [Changelog](#changelog)
 * [License](#license)
@@ -33,7 +33,7 @@ curl -sSfL https://raw.githubusercontent.com/mapi68/raspi-info/master/raspi-info
 
 **raspi-info-update** (update raspi-info)
 
-## Uninstall
+## Uninstallation
 ```bash
 sudo apt --purge remove raspi-info -y
 ```
