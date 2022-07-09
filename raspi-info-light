@@ -57,9 +57,12 @@ if [ `whoami` = 'root' ]; then
 fi
 
 # Check Internet and IP
-EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
-COUNTRY=`whois $EXTIP | grep -m 1 country: | awk '{print $2}'`
-ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP $EXTIP ($COUNTRY)" || echo -e "\e[31m\e[1mInternet not connected"'\e[0m'
+#EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
+#COUNTRY=`whois $EXTIP | grep -m 1 country: | awk '{print $2}'`
+#ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP $EXTIP ($COUNTRY)" || echo -e "\e[31m\e[1mInternet not connected"'\e[0m'
+EXTIP=$(curl -s http://pv.sohu.com/cityjson?ie=utf-8 |awk -F \" '{print($4)}')
+COUNTRY=$(curl -s http://pv.sohu.com/cityjson?ie=utf-8 |awk -F \" '{print($12)}')
+ping -c 1 bing.com  &> /dev/null && echo -e "\e[32mInternet connected with IP $EXTIP ($COUNTRY)" || echo -e "\e[31m\e[1mInternet not connected"'\e[0m'
 INTERFACE=$(ip -o -f inet addr show | awk '/scope global/ {print $2, $4}')
 echo -e -n '\e[32m'"Internal IP:" $INTERFACE
 
@@ -84,7 +87,8 @@ echo -e "Uptime `uptime -p | sed "s/^[^ ]* //"`"
 echo -e '\e[0m'
 
 # Bitcoin
-BTCUSD=`curl -sk https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
+#BTCUSD=`curl -sk https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
+BTCUSD=`curl -sk https://api.yshyqxx.com/api/v3/avgPrice?symbol=BTCUSDT | jq -r .price`
 echo " 1 Bitcoin = "$BTCUSD" USD "
 
 # Tips and random color for fitglet

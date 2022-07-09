@@ -200,7 +200,8 @@ echo && echo -e '\e[33m'"********* Please wait: trying to get advanced Internet 
 
 # Check Internet and IP
 echo
-EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
+#EXTIP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//')
+EXTIP=$(curl -s http://pv.sohu.com/cityjson?ie=utf-8 |awk -F \" '{print($4)}')
 ping -c 1 google.com &> /dev/null && echo -e "\e[32mInternet connected with IP \e[1m$EXTIP \e[0m\e[91m(traceroute hops: `traceroute $EXTIP | wc -l`)" && echo -e '\e[0m'"\e[95m`$(traceroute $EXTIP > /tmp/trace) && tail -n +2 /tmp/trace`" && echo -e '\e[32m'Whois: '\e[94m'`whois $EXTIP | grep -m 1 owner: | awk '{print $2,$3,$4,$5}'` "\b"`whois $EXTIP | grep -m 1 netname: | awk '{print $2,$3,$4,$5}'` '\e[32m'Address: '\e[94m'`whois $EXTIP | grep -m 2 address: | awk '{print $2,$3,$4,$5,$6,$7,$8,$9}'` '\e[32m'Country: '\e[94m'`whois $EXTIP | grep -m 1 country: | awk '{print $2}'` || echo -e "\e[31m\e[1mInternet not connected"
 
 # Kernel IP routing table
@@ -274,7 +275,7 @@ fi
 
 # Ping various server
 echo -e '\e[0m'"Time to ping world common servers and DNS"
-echo -e '\e[94m'"google.com `ping -c 1 google.com | tail -c 23 | head -c 4` ms / youtube.com `ping -c 1 youtube.com | tail -c 23 | head -c 4` ms / instagram.com `ping -c 1 instagram.com | tail -c 23 | head -c 4` ms / amazon.com `ping -c 1 amazon.com | tail -c 23 | head -c 4` ms"
+#echo -e '\e[94m'"google.com `ping -c 1 google.com | tail -c 23 | head -c 4` ms / youtube.com `ping -c 1 youtube.com | tail -c 23 | head -c 4` ms / instagram.com `ping -c 1 instagram.com | tail -c 23 | head -c 4` ms / amazon.com `ping -c 1 amazon.com | tail -c 23 | head -c 4` ms"
 echo -e "DNS Google (8.8.8.8) `ping -c 1 8.8.8.8 | tail -c 23 | head -c 4` ms / DNS Quad9 (9.9.9.9) `ping -c 1 9.9.9.9 | tail -c 23 | head -c 4` ms / DNS CloudFlare (1.1.1.1) `ping -c 1 1.1.1.1 | tail -c 23 | head -c 4` ms"
 echo -e '\e[32m'
 
@@ -318,7 +319,8 @@ echo -e "Days from beginning of year `date +"%j"` / Weeks from beginning of year
 echo -e '\e[0m'
 
 # Bitcoin
-BTCUSD=`curl -sk https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
+#BTCUSD=`curl -sk https://api.coindesk.com/v1/bpi/currentprice/usd.json | jq -r .bpi.USD.rate | tail -c +1 | head -c -1 | rev | cut -c3- | rev`
+BTCUSD=`curl -sk https://api.yshyqxx.com/api/v3/avgPrice?symbol=BTCUSDT | jq -r .price`
 echo -e '\e[40;38;5;82m'" 1 Bitcoin = "$BTCUSD" USD "'\e[0m'
 
 # Tips and random color for fitglet
